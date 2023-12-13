@@ -16,41 +16,49 @@ class MerchantRepository
         end
     end
 
-    def all # all - returns an array of all known Merchant instances
+    def all
         @merchants
     end
 
-    def find_by_id(id) # find_by_id(id) - returns either nil or an instance of Merchant with a matching ID
+    def find_by_id(id)
         @merchants.find do |merchant|
-            merchant[:id] == id
+            merchant.id == id
         end
     end
 
-    def find_by_name(name)# find_by_name(name) - returns either nil or an instance of Merchant having done a case insensitive search
+    def find_by_name(name)
         @merchants.find do |merchant|
-            merchant[:name] == name
+            merchant.name.downcase == name.downcase
         end
     end
 
-    def find_all_by_name(name) # find_all_by_name(name) - returns either [] or one or more matches which contain the supplied name fragment, case insensitive
+    def find_all_by_name(name)
         @merchants.find_all do |merchant|
             merchant.name.downcase.include?(name.downcase)
         end
     end
 
-    def create(attributes)# create(attributes) - create a new Merchant instance with the provided attributes. The new Merchant’s id should be the current highest Merchant id plus 1.
-
-        @merchants[:id] += 1
-
+    def create(attributes)
+        highest_id = @merchants.map(&:id).max || 0
+        new_id = highest_id + 1
+        attributes["id"] = new_id
+        new_merchant = Merchant.new(attributes)
+        @merchants << new_merchant
+        new_merchant
     end
 
-    def update(id, attributes)# update(id, attributes) - update the Merchant instance with the corresponding id with the provided attributes. Only the merchant’s name attribute can be updated.
-
+    def update(id, attributes)
+        merchant_to_update = find_by_id(id)
+        if merchant_to_update
+          merchant_to_update.name = attributes[:name] if attributes[:name]
+        end
+        merchant_to_update
     end
 
-    def delete(id)# delete(id) - delete the Merchant instance with the corresponding id
-
-
+    def delete(id)
+        @merchants.reject! do |merchant|
+            merchant.id == id
+        end
     end
 
 

@@ -17,32 +17,47 @@ RSpec.describe MerchantRepository do
         expect(@merchantrepository.merchants.map(&:name)).to include("Shopin1901")
     end
 
-    xit "#all" do
-        expect(@merchantrepository).to include({})
+    it "#all" do
+        expect(@merchantrepository.merchants.first).to be_an_instance_of Merchant
     end
 
-    xit "#find_by_id" do
-        expect(@merchantrepository).to be eq()
+    it "#find_by_id" do
+        expect(@merchantrepository.find_by_id(12334105)).to be_an_instance_of Merchant
     end
 
-    xit "#find_by_name" do
-        expect(@merchantrepository).to be eq()
+    it "#find_by_name" do
+        expect(@merchantrepository.find_by_name("Shopin1901")).to be_an_instance_of Merchant
+        expect(@merchantrepository.find_by_name("shopin1901")).to be_an_instance_of Merchant
     end
 
-    xit "#find_all_by_name" do
-        expect(@merchantrepository).to be eq([])
+    it "#find_all_by_name" do
+        expect(@merchantrepository.merchants.first).to be_an_instance_of Merchant
     end
 
-    xit "#create" do
-        expect().to eq()
+    it "#create" do
+        expect(@merchantrepository.merchants.first).to be_an_instance_of Merchant
     end
 
-    xit "#update" do
-        expect().to eq()
+    it "#update" do
+            original_attributes = { name: "Original Name" }
+            @merchantrepository.create(original_attributes)
+
+            updated_attributes = { name: "New Name" }
+            updated_merchant = @merchantrepository.update(12334105, updated_attributes)
+
+            expect(updated_merchant.name).to eq("New Name")
+            expect(updated_merchant).to be_an_instance_of(Merchant)
     end
 
-    xit "#delete" do
-        expect().to eq()
+    it "#delete" do
+        attributes = { id: 12334105, name: "ToDelete" }
+        @merchantrepository.create(attributes)
+
+        expect(@merchantrepository.find_by_id(12334105)).to be_an_instance_of Merchant
+
+        @merchantrepository.delete(12334105)
+
+        expect(@merchantrepository.find_by_id(12334105)).to be_nil
     end
 
 end
