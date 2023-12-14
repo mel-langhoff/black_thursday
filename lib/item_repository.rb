@@ -60,6 +60,12 @@ class ItemRepository
         end
     end
 
+    def find_all_by_price_range(range)
+        @items.find_all do |item|
+            range.include?(item.unit_price)
+        end
+    end
+
     def create(item_attributes)
         highest_id = @items.map(&:id).max || 0
         new_id = highest_id + 1
