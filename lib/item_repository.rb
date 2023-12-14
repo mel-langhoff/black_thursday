@@ -50,7 +50,7 @@ class ItemRepository
 
     def find_all_by_price(unit_price)
         @items.find_all do |item|
-            item.unit_price.to_f.include?(unit_price.to_f)
+            item.unit_price.to_s.include?(unit_price.to_s)
         end
     end
 

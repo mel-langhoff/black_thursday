@@ -37,8 +37,9 @@ RSpec.describe ItemRepository do
         expect(@itemrepository.items.first.id).to eq(263395237)
     end
 
-    xit "#find_all_by_price" do
-        expect(@itemrepository.find_all_by_price("1300")).to include("100% vector shapes (AI, CDR, SVG)")
+    it "#find_all_by_price" do
+        @itemrepository.find_all_by_price(1300)
+        expect(@itemrepository.items.first.description).to include("100% vector shapes (AI, CDR, SVG)")
     end
 
     xit "#find_all_by_merchant_id" do
