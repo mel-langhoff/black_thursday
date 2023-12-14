@@ -2,13 +2,13 @@ require "csv"
 class ItemRepository
     attr_accessor :items
 
-    def initialize(file_path)
+    def initialize(item_file_path)
         @items = []
-        load_items(file_path)
+        load_items(item_file_path)
     end
 
-    def load_items(file_path)
-        CSV.foreach(file_path, headers: true) do |row|
+    def load_items(item_file_path)
+        CSV.foreach(item_file_path, headers: true) do |row|
             id = row["id"].to_i
             name = row["name"]
             description = row["description"]

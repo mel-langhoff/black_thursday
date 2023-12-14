@@ -2,13 +2,13 @@ require "csv"
 class MerchantRepository
     attr_accessor :merchants
 
-    def initialize(file_path)
+    def initialize(merchant_file_path)
         @merchants = []
-        load_merchants(file_path)
+        load_merchants(merchant_file_path)
     end
 
-    def load_merchants(file_path)
-        CSV.foreach(file_path, headers: true) do |row|
+    def load_merchants(merchant_file_path)
+        CSV.foreach(merchant_file_path, headers: true) do |row|
             id = row["id"].to_i
             name = row["name"]
             created_at = row["created_at"]

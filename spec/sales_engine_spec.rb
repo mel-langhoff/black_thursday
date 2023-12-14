@@ -3,6 +3,7 @@ require "./spec/spec_helper.rb"
 RSpec.describe SalesEngine do
     before :each do
         @sales_engine = SalesEngine.new
+        @sales_analyst = @sales_engine.analyst
     end
 
     it "exists" do
@@ -19,4 +20,7 @@ RSpec.describe SalesEngine do
         expect(se.merchants).to be_an_instance_of MerchantRepository
     end
 
+    it "#analyst" do
+        expect(@sales_analyst).to be_an_instance_of SalesAnalyst
+    end
 end

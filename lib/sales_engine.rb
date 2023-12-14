@@ -13,7 +13,6 @@ class SalesEngine
         sales_engine
     end
 
-
     def load_items(item_file_path)
         item_repository = ItemRepository.new(item_file_path)
         CSV.foreach(item_file_path, headers: true) do |row|
@@ -41,13 +40,7 @@ class SalesEngine
         @merchants = merchant_repository
     end
 
+    def analyst
+        SalesAnalyst.new
+    end
 end
-
-# se = SalesEngine.from_csv({
-#   :items     => "./data/items.csv",
-#   :merchants => "./data/merchants.csv",
-# })
-# From there we can find the child instances:
-
-# items returns an instance of ItemRepository with all the item instances loaded
-# merchants returns an instance of MerchantRepository with all the merchant instances loaded
