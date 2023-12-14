@@ -15,12 +15,8 @@ RSpec.describe SalesEngine do
         :merchants => "./data/merchants.csv",
         })
         expect(se).to be_an_instance_of SalesEngine
-        expect(se.items).to be_a Array
-        expect(se.items.first).to be_an_instance_of Item
-        expect(se.items.first.name).to eq("510+ RealPush Icon Set")
-        expect(se.merchants).to be_a Array
-        expect(se.merchants.first).to be_an_instance_of Merchant
-        expect(se.merchants.first.name).to eq("Shopin1901")
+        expect(se.items).to be_an_instance_of ItemRepository
+        expect(se.merchants).to be_an_instance_of MerchantRepository
     end
 
 end
