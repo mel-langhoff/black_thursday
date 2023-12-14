@@ -2,8 +2,6 @@ require "./spec/spec_helper"
 
 RSpec.describe MerchantRepository do
     before :each do
-        @merchant1 = Merchant.new({:id => 5, :name => "Turing School"})
-        @merchant2 = Merchant.new({:id => 4, :name => "King Sooper's"})
         @merchantrepository = MerchantRepository.new("./data/merchants.csv")
     end
 
@@ -39,14 +37,14 @@ RSpec.describe MerchantRepository do
     end
 
     it "#update" do
-            original_attributes = { name: "Original Name" }
-            @merchantrepository.create(original_attributes)
+        original_attributes = { name: "Original Name" }
+        @merchantrepository.create(original_attributes)
 
-            updated_attributes = { name: "New Name" }
-            updated_merchant = @merchantrepository.update(12334105, updated_attributes)
+        updated_attributes = { name: "New Name" }
+        updated_merchant = @merchantrepository.update(12334105, updated_attributes)
 
-            expect(updated_merchant.name).to eq("New Name")
-            expect(updated_merchant).to be_an_instance_of(Merchant)
+        expect(updated_merchant.name).to eq("New Name")
+        expect(updated_merchant).to be_an_instance_of(Merchant)
     end
 
     it "#delete" do
