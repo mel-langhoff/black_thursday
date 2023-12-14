@@ -27,23 +27,25 @@ RSpec.describe ItemRepository do
         expect(@itemrepository.find_by_name("510+ RealPush Icon Set")).to be_an_instance_of Item
     end
 
-    xit "#find_all_by_name" do
-        expect(@itemrepository.find_all_by_name("RealPush")).to be_an_instance_of Item
+    it "#find_all_by_name" do
+        all_by_name = @itemrepository.find_all_by_name("RealPush")
+        expect(all_by_name.first.id).to eq(263395237)
     end
 
     it "#find_all_by_description" do
-        @itemrepository.find_all_by_description("100% vector")
-        expect(@itemrepository.items.first.name).to include("510")
-        expect(@itemrepository.items.first.id).to eq(263395237)
+        all_by_description = @itemrepository.find_all_by_description("100% vector")
+        expect(all_by_description.first.name).to include("510")
+        expect(all_by_description.first.id).to eq(263395237)
     end
 
     it "#find_all_by_price" do
-        @itemrepository.find_all_by_price(1300)
-        expect(@itemrepository.items.first.description).to include("100% vector shapes (AI, CDR, SVG)")
+        all_by_price = @itemrepository.find_all_by_price(1300)
+        expect(all_by_price.first.description).to include("Glitter")
     end
 
-    xit "#find_all_by_merchant_id" do
-        expect(@itemrepository.find_all_by_merchant_id(12334185)).to include("100% vector shapes (AI, CDR, SVG)")
+    it "#find_all_by_merchant_id" do
+        all_by_merchant_id = @itemrepository.find_all_by_merchant_id(12334185)
+        expect(all_by_merchant_id.first.description).to include("scrabble")
     end
 
     it "#create" do

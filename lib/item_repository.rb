@@ -56,7 +56,7 @@ class ItemRepository
 
     def find_all_by_merchant_id(merchant_id)
         @items.find_all do |item|
-            item.merchant_id.include?(merchant_id)
+            item.merchant_id.to_s.include?(merchant_id.to_s)
         end
     end
 
