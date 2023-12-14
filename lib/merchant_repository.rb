@@ -1,3 +1,4 @@
+require "csv"
 class MerchantRepository
     attr_accessor :merchants
 
@@ -38,19 +39,19 @@ class MerchantRepository
         end
     end
 
-    def create(attributes)
+    def create(merchant_attributes)
         highest_id = @merchants.map(&:id).max || 0
         new_id = highest_id + 1
-        attributes["id"] = new_id
-        new_merchant = Merchant.new(attributes)
+        merchant_attributes["id"] = new_id
+        new_merchant = Merchant.new(merchant_attributes)
         @merchants << new_merchant
         new_merchant
     end
 
-    def update(id, attributes)
+    def update(id, merchant_attributes)
         merchant_to_update = find_by_id(id)
         if merchant_to_update
-          merchant_to_update.name = attributes[:name] if attributes[:name]
+          merchant_to_update.name = merchant_attributes[:name] if merchant_attributes[:name]
         end
         merchant_to_update
     end

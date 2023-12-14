@@ -6,56 +6,57 @@ RSpec.describe ItemRepository do
     end
 
     it "exists" do
-        expect(@mitemrepository).to be_an_instance_of ItemRepository
+        expect(@itemrepository).to be_an_instance_of ItemRepository
     end
 
-    it "has merchants" do
-        expect(@mitemrepository.items).to be_a Array
-        expect(@mitemrepository.items.map(&:id)).to include(12334105) # map(&:id) is used to create an array containing all the id values from the merchants array
-        expect(@mitemrepository.items.map(&:name)).to include("Shopin1901")
+    it "has items and item information" do
+        expect(@itemrepository.items).to be_a Array
+        expect(@itemrepository.items.map(&:id)).to include(263395237) # map(&:id) is used to create an array containing all the id values from the merchants array
+        expect(@itemrepository.items.map(&:name)).to include("510+ RealPush Icon Set")
     end
 
     it "#all" do
-        expect(@mitemrepository.items.first).to be_an_instance_of Item
+        expect(@itemrepository.items.first).to be_an_instance_of Item
     end
 
     it "#find_by_id" do
-        expect(@mitemrepository.find_by_id(12334105)).to be_an_instance_of Item
+        expect(@itemrepository.find_by_id(263395237)).to be_an_instance_of Item
     end
 
     it "#find_by_name" do
-        expect(@mitemrepository.find_by_name("Shopin1901")).to be_an_instance_of Item
-        expect(@mitemrepository.find_by_name("shopin1901")).to be_an_instance_of Item
+        expect(@itemrepository.find_by_name("510+ RealPush Icon Set")).to be_an_instance_of Item
+        expect(@itemrepository.find_by_name("510+ realpush icon set")).to be_an_instance_of Item
     end
 
     it "#find_all_by_name" do
-        expect(@mitemrepository.merchants.first).to be_an_instance_of Item
+        expect(@itemrepository.items.first).to be_an_instance_of Item
     end
 
     it "#create" do
-        expect(@mitemrepository.merchants.first).to be_an_instance_of MercItemhant
+        expect(@itemrepository.items.first).to be_an_instance_of Item
+        expect(@itemrepository.items.first.id).to eq(263395237)
     end
 
     it "#update" do
-        original_attributes = { name: "Original Name" }
-        @mitemrepository.create(original_attributes)
-
-        updated_attributes = { name: "New Name" }
-        updated_item = @mitemrepository.update(12334105, updated_attributes)
-
+        original_attribute = { name: "Name" }
+        item1 = @itemrepository.create(original_attribute)
+    
+        updated_attribute = { name: "New Name" }
+        updated_item = @itemrepository.update(item1.id, updated_attribute)
+    
         expect(updated_item.name).to eq("New Name")
-        expect(updated_item).to be_an_instance_of Item
+        expect(updated_item).to be_an_instance_of(Item)
     end
 
     it "#delete" do
-        attributes = { id: 12334105, name: "ToDelete" }
-        @mitemrepository.create(attributes)
+        attributes = { id: 263395237, name: "ToDelete" }
+        @itemrepository.create(attributes)
 
-        expect(@mitemrepository.find_by_id(12334105)).to be_an_instance_of Merchant
+        expect(@itemrepository.find_by_id(263395237)).to be_an_instance_of Item
 
-        @mitemrepository.delete(12334105)
+        @itemrepository.delete(263395237)
 
-        expect(@mitemrepository.find_by_id(12334105)).to be_nil
+        expect(@itemrepository.find_by_id(263395237)).to be_nil
     end
 
 end

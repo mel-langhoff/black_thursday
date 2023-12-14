@@ -1,3 +1,4 @@
+require "csv"
 class ItemRepository
     attr_accessor :items
 
@@ -10,9 +11,12 @@ class ItemRepository
         CSV.foreach(file_path, headers: true) do |row|
             id = row["id"].to_i
             name = row["name"]
+            description = row["description"]
+            unit_price = row["unit_price"]
+            merchant_id = row["merchant_id"]
             created_at = row["created_at"]
             updated_at = row["updated_at"]
-            @items << item.new(id: id.to_i, name: name, created_at: created_at, updated_at: updated_at)
+            @items << Item.new(id: id.to_i, name: name, description: description, unit_price: unit_price, merchant_id: merchant_id, created_at: created_at, updated_at: updated_at)
         end
     end
 
@@ -38,19 +42,19 @@ class ItemRepository
         end
     end
 
-    def create(attributes)
+    def create(item_attributes)
         highest_id = @items.map(&:id).max || 0
         new_id = highest_id + 1
-        attributes["id"] = new_id
-        new_item = item.new(attributes)
+        item_attributes["id"] = new_id
+        new_item = Item.new(item_attributes)
         @items << new_item
         new_item
     end
 
-    def update(id, attributes)
+    def update(id, item_attributes)
         item_to_update = find_by_id(id)
         if item_to_update
-          item_to_update.name = attributes[:name] if attributes[:name]
+          item_to_update.name = item_attributes[:name] if item_attributes[:name]
         end
         item_to_update
     end
