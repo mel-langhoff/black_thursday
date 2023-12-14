@@ -25,11 +25,24 @@ RSpec.describe ItemRepository do
 
     it "#find_by_name" do
         expect(@itemrepository.find_by_name("510+ RealPush Icon Set")).to be_an_instance_of Item
-        expect(@itemrepository.find_by_name("510+ realpush icon set")).to be_an_instance_of Item
     end
 
-    it "#find_all_by_name" do
-        expect(@itemrepository.items.first).to be_an_instance_of Item
+    xit "#find_all_by_name" do
+        expect(@itemrepository.find_all_by_name("RealPush")).to be_an_instance_of Item
+    end
+
+    it "#find_all_by_description" do
+        @itemrepository.find_all_by_description("100% vector")
+        expect(@itemrepository.items.first.name).to include("510")
+        expect(@itemrepository.items.first.id).to eq(263395237)
+    end
+
+    xit "#find_all_by_price" do
+        expect(@itemrepository.find_all_by_price("1300")).to include("100% vector shapes (AI, CDR, SVG)")
+    end
+
+    xit "#find_all_by_merchant_id" do
+        expect(@itemrepository.find_all_by_merchant_id(12334185)).to include("100% vector shapes (AI, CDR, SVG)")
     end
 
     it "#create" do

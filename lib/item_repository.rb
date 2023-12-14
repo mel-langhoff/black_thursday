@@ -42,6 +42,24 @@ class ItemRepository
         end
     end
 
+    def find_all_by_description(description)
+        @items.find_all do |item|
+            item.description.downcase.include?(description.downcase)
+        end
+    end
+
+    def find_all_by_price(unit_price)
+        @items.find_all do |item|
+            item.unit_price.to_f.include?(unit_price.to_f)
+        end
+    end
+
+    def find_all_by_merchant_id(merchant_id)
+        @items.find_all do |item|
+            item.merchant_id.include?(merchant_id)
+        end
+    end
+
     def create(item_attributes)
         highest_id = @items.map(&:id).max || 0
         new_id = highest_id + 1
