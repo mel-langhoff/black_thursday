@@ -17,8 +17,10 @@ RSpec.describe SalesEngine do
         expect(se).to be_an_instance_of SalesEngine
         expect(se.items).to be_a Array
         expect(se.items.first).to be_an_instance_of Item
+        expect(se.items.first.name).to eq("510+ RealPush Icon Set")
         expect(se.merchants).to be_a Array
         expect(se.merchants.first).to be_an_instance_of Merchant
+        expect(se.merchants.first.name).to eq("Shopin1901")
     end
 
 end
