@@ -27,11 +27,11 @@ RSpec.describe TransactionRepository do
         expect(invoices_by_id.first.credit_card_number).to eq("4068631943231473")
     end
 
-    xit "#find_all_by_credit_card_number" do
+    it "#find_all_by_credit_card_number" do
         queried_credit_card_number = @transactionrepository.find_all_by_credit_card_number(4068631943231473)
         expect(queried_credit_card_number).to be_a Array
-        expect(queried_credit_card_number.first).to be_an_instance_of InvoiceItem
-        expect(queried_credit_card_number.first.invoice_id).to eq(1)
+        expect(queried_credit_card_number.first).to be_an_instance_of Transaction
+        expect(queried_credit_card_number.first.invoice_id).to eq("2179")
     end
 
     it "#create" do
@@ -65,15 +65,15 @@ RSpec.describe TransactionRepository do
         expect(updated_transaction).to be_an_instance_of Transaction
     end
 
-    xit "#delete" do
-        attributes = { id: 1, item_id: "263519844" }
-        @invoiceitemrepository.create(attributes)
+    it "#delete" do
+        attributes = { id: 1, invoice_id: "2179" }
+        @transactionrepository.create(attributes)
 
-        expect(@invoiceitemrepository.find_by_id(1)).to be_an_instance_of InvoiceItem
+        expect(@transactionrepository.find_by_id(1)).to be_an_instance_of Transaction
 
-        @invoiceitemrepository.delete(1)
+        @transactionrepository.delete(1)
 
-        expect(@invoiceitemrepository.find_by_id(1)).to be_nil
+        expect(@transactionrepository.find_by_id(1)).to be_nil
     end
 
 end

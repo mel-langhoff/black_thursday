@@ -65,9 +65,9 @@ class TransactionRepository
 
     end
 
-    # def delete(id)
-    #     @invoice_items.reject! do |invoice_item|
-    #         invoice_item.id.to_i == id.to_i
-    #     end
-    # end
+    def delete(id)
+        @transactions.reject! do |transaction|
+            transaction.id.to_i == id.to_i
+        end
+    end
 end
