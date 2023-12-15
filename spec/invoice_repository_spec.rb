@@ -17,4 +17,15 @@ RSpec.describe InvoiceRepository do
     it "#all" do
         expect(@invoicerepository.all).to include Invoice
     end 
+
+    it "#find_by_id" do
+        expect(@invoicerepository.find_by_id(1)).to be_an_instance_of Invoice
+    end
+
+    it "#find_all_by_customer_id" do
+        customers_by_id = @invoicerepository.find_all_by_customer_id(1)
+        expect(customers_by_id).to be_a Array
+        expect(customers_by_id.first).to be_an_instance_of Invoice
+        expect(customers_by_id.first.status).to eq("pending")
+    end
 end

@@ -12,7 +12,7 @@ class InvoiceRepository
             customer_id = row["customer_id"].to_i
             merchant_id = row["merchant_id"].to_i
             status = row["status"]
-            created_at = row["invoice_attributes"]
+            created_at = row["created_at"]
             updated_at = row["updated_at"]
             invoice_attributes = {
                 id: id,
@@ -38,13 +38,13 @@ class InvoiceRepository
 
     def find_all_by_customer_id(customer_id)
         @invoices.find_all do |invoice|
-        invoice.customer_id.to_i.include?(customer_id.to_s)
+        invoice.customer_id.to_s.include?(customer_id.to_s)
         end
     end
 
     def find_all_by_merchant_id(merchant_id)
-        @minvoices.find_all do |invoice|
-        invoice.merchant_id.to_i.include?(merchant_id.to_s)
+        @invoices.find_all do |invoice|
+        invoice.merchant_id.to_i.include?(merchant_id.to_i)
         end
     end
 
