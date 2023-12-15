@@ -32,11 +32,11 @@ class TransactionRepository
         @transactions
     end
 
-    # def find_by_id(id)
-    #     @invoice_items.find do |invoice_item|
-    #         invoice_item.id.to_i == id.to_i
-    #     end
-    # end
+    def find_by_id(id)
+        @transactions.find do |transaction|
+            transaction.id.to_i == id.to_i
+        end
+    end
 
     # def find_all_by_item_id(item_id)
     #     @invoice_items.find_all do |invoice|

@@ -15,9 +15,9 @@ RSpec.describe TransactionRepository do
         expect(@transactionrepository.transactions.first.invoice_id).to eq("2179")
     end
 
-    xit "#find_by_id" do
-        expect(@invoiceitemrepository.find_by_id(1)).to be_an_instance_of InvoiceItem
-        expect(@invoiceitemrepository.find_by_id(1).item_id).to eq("263519844")
+    it "#find_by_id" do
+        expect(@transactionrepository.find_by_id(1)).to be_an_instance_of Transaction
+        expect(@transactionrepository.find_by_id(1).invoice_id).to eq("2179")
     end
 
     xit "#find_all_by_item_id" do
