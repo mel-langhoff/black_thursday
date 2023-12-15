@@ -1,4 +1,3 @@
-require "csv"
 class MerchantRepository
     attr_accessor :merchants
 
