@@ -38,17 +38,17 @@ class InvoiceItemRepository
         end
     end
 
-    # def find_all_by_customer_id(customer_id)
-    #     @invoices.find_all do |invoice|
-    #     invoice.customer_id.to_s.include?(customer_id.to_s)
-    #     end
-    # end
+    def find_all_by_item_id(item_id)
+        @invoice_items.find_all do |invoice|
+        invoice.item_id.to_s.include?(item_id.to_s)
+        end
+    end
 
-    # def find_all_by_merchant_id(merchant_id)
-    #     @invoices.find_all do |invoice|
-    #     invoice.merchant_id.to_s.include?(merchant_id.to_s)
-    #     end
-    # end
+    def find_all_by_invoice_id(invoice_id)
+        @invoice_items.find_all do |invoice|
+        invoice.invoice_id.to_s.include?(invoice_id.to_s)
+        end
+    end
 
     # def find_all_by_status(status)
     #     @invoices.find_all do |invoice|
