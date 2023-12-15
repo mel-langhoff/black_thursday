@@ -45,4 +45,15 @@ RSpec.describe InvoiceItemRepository do
         expect(@invoiceitemrepository.invoice_items.length).to eq(initial_count + 1)
     end
 
+    it "#update" do
+        original_quantity = { id: 1, quantity: "5" }
+        @invoiceitemrepository.create(original_quantity)
+
+        updated_quantity = { id: 1, quantity: "6" }
+        updated_invoice_item = @invoiceitemrepository.update(1, updated_quantity)
+
+        expect(updated_invoice_item.quantity).to eq("6")
+        expect(updated_invoice_item).to be_an_instance_of InvoiceItem
+    end
+
 end

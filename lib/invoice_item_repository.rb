@@ -56,13 +56,14 @@ class InvoiceItemRepository
         new_invoice_item
     end
 
-    # def update(id, invoice_attributes)
-    #     invoice_to_update = find_by_id(id)
-    #     if invoice_to_update
-    #         invoice_to_update.status = invoice_attributes[:status]
-    #     end
-    #     invoice_to_update
-    # end
+    def update(id, invoice_item_attributes)
+        invoice_item_to_update = find_by_id(id)
+        if invoice_item_to_update
+            invoice_item_to_update.quantity = invoice_item_attributes[:quantity]
+        end
+        invoice_item_to_update
+
+    end
 
     # def delete(id)
     #     @invoices.reject! do |invoice|
