@@ -64,6 +64,8 @@ RSpec.describe SalesAnalyst do
     it "#invoice_status" do
         expect(@sales_analyst.invoice_status(pending)).to be_a Float
         expect(@sales_analyst.invoice_status(pending)).to eq(29.55)
-    end
+        expect(@sales_analyst.invoice_status(shipped)).to eq(56.95)
+        expect(@sales_analyst.invoice_status(returned)).to eq(13.5)
+    end 
 
 end
