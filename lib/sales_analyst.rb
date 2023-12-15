@@ -48,9 +48,9 @@ class SalesAnalyst
     end
 
     def average_invoices_per_merchant 
-        @total_invoices = @invoices.invoices.length.to_f
-        @total_merchants = @merchants.merchants.size.to_f
-        (@total_invoices / @total_merchants).round(2)
+        total_invoices = @invoices.invoices.size.to_f
+        total_merchants = @merchants.merchants.size.to_f
+        (total_invoices / total_merchants).round(2)
     end
 
     def average_invoices_per_merchant_standard_deviation
@@ -62,4 +62,13 @@ class SalesAnalyst
         standard_deviation = Math.sqrt(squared_diff_sum / @merchants.all.length)
         standard_deviation.round(2)
     end
+
+    def top_merchants_by_invoice_count
+        merchants_by_invoice_count = @merchants.merchants.map.sort_by do |merchant|
+            @invoices.find_all_by_merchant_id(merchant.id).size
+            end
+        merchants_by_invoice_count
+
+    end
+        
 end
