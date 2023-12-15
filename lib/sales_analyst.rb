@@ -68,7 +68,13 @@ class SalesAnalyst
             @invoices.find_all_by_merchant_id(merchant.id).size
             end
         merchants_by_invoice_count
+    end
 
+    def bottom_merchants_by_invoice_count
+        merchants_by_invoice_count = @merchants.merchants.map.sort_by do |merchant|
+            @invoices.find_all_by_merchant_id(merchant.id).size
+            end
+        merchants_by_invoice_count.reverse
     end
         
 end

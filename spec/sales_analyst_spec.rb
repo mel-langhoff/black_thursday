@@ -51,4 +51,9 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.top_merchants_by_invoice_count.first).to be_an_instance_of Merchant
     end
 
+    it "#bottom_merchants_by_invoice_count" do
+        expect(@sales_analyst.bottom_merchants_by_invoice_count).to be_a Array
+        expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_an_instance_of Merchant
+    end
+
 end
