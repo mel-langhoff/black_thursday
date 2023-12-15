@@ -73,6 +73,5 @@ class InvoiceRepository
             invoice.id == id
         end
     end
-
 end
 

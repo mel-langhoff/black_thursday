@@ -3,6 +3,7 @@ require "./spec/spec_helper"
 RSpec.describe InvoiceRepository do
     before :each do
         @invoicerepository = InvoiceRepository.new("./data/invoices.csv")
+        @sales_analyst = SalesAnalyst.new
     end
 
     it "exists" do
@@ -75,6 +76,4 @@ RSpec.describe InvoiceRepository do
 
         expect(@invoicerepository.find_by_id(12335938)).to be_nil
     end
-
-
 end

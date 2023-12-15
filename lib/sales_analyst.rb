@@ -1,12 +1,6 @@
 class SalesAnalyst
     attr_accessor :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine, :item_repository, :invoices
 
-    def initialize
-        @items = []
-        @merchants = []
-        @invoices = []
-    end
-
     def average_items_per_merchant  
         @total_items = @items.items.size.to_f
         @total_merchants = @merchants.merchants.size.to_f
@@ -51,5 +45,11 @@ class SalesAnalyst
         @items.items.find_all do |item|
             item.unit_price.to_f > set_limit
         end
+    end
+
+    def average_invoices_per_merchant 
+        @total_invoices = @invoices.invoices.size.to_f
+        @total_merchants = @merchants.merchants.size.to_f
+        (@total_invoices / @total_merchants).round(2)
     end
 end

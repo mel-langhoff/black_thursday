@@ -2,15 +2,16 @@ require "./spec/spec_helper"
 
 RSpec.describe SalesAnalyst do
     before :each do
-        items_and_merchants_repositories = SalesEngine.from_csv({
+        items_and_merchants_and_invoices_repositories = SalesEngine.from_csv({
         :items     => "./data/items.csv",
         :merchants => "./data/merchants.csv",
         :invoices => "./data/invoices.csv"
         })
 
         @sales_analyst = SalesAnalyst.new
-        @sales_analyst.items = items_and_merchants_repositories.items
-        @sales_analyst.merchants = items_and_merchants_repositories.merchants
+        @sales_analyst.items = items_and_merchants_and_invoices_repositories.items
+        @sales_analyst.invoices = items_and_merchants_and_invoices_repositories.invoices
+        @sales_analyst.merchants = items_and_merchants_and_invoices_repositories.merchants
     end
 
     it "exists" do
@@ -35,6 +36,14 @@ RSpec.describe SalesAnalyst do
 
     it "#golden_items" do
         expect(@sales_analyst.golden_items).to be_a Array
+    end
+
+    it "#average_invoices_per_merchant" do
+        expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
+    end
+
+    xit "average_invoices_per_merchant_standard_deviation" do
+        expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
 
 end

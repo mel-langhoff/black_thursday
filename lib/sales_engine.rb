@@ -15,6 +15,7 @@ class SalesEngine
     end
 
     def load_invoices(invoice_file_path)
+        invoice_repository = InvoiceRepository.new(invoice_file_path)
         CSV.foreach(invoice_file_path, headers: true) do |row|
             id = row["id"].to_i
             customer_id = row["customer_id"].to_i
@@ -32,6 +33,9 @@ class SalesEngine
             }
             @invoices << Invoice.new(invoice_attributes)
         end
+        @invoices = invoice_repository
+        @list_of_all_invoices = invoice_repository.invoices
+        invoice_repository
     end
 
     def load_items(item_file_path)
