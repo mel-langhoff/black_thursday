@@ -1,9 +1,10 @@
 class SalesAnalyst
-    attr_accessor :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine, :item_repository
+    attr_accessor :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine, :item_repository, :invoices
 
     def initialize
         @items = []
         @merchants = []
+        @invoices = []
     end
 
     def average_items_per_merchant  

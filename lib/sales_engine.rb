@@ -1,15 +1,37 @@
 class SalesEngine
-    attr_reader :items, :merchants, :item_file_path, :merchant_file_path, :list_of_all_items, :list_of_all_merchants, :file_paths
+    attr_reader :items, :merchants, :item_file_path, :merchant_file_path, :list_of_all_items, :list_of_all_merchants, :file_paths, :invoices
     def initialize
         @items = []
         @merchants = []
+        @invoices = []
     end
 
     def self.from_csv(file_paths)
         sales_engine = SalesEngine.new
         sales_engine.load_items(file_paths[:items])
         sales_engine.load_merchants(file_paths[:merchants])
+        sales_engine.load_invoices(file_paths[:invoices])
         sales_engine
+    end
+
+    def load_invoices(invoice_file_path)
+        CSV.foreach(invoice_file_path, headers: true) do |row|
+            id = row["id"].to_i
+            customer_id = row["customer_id"].to_i
+            merchant_id = row["merchant_id"].to_i
+            status = row["status"]
+            created_at = row["created_at"]
+            updated_at = row["updated_at"]
+            invoice_attributes = {
+                id: id,
+                customer_id: customer_id,
+                merchant_id: merchant_id,
+                status: status,
+                created_at: created_at,
+                updated_at: updated_at
+            }
+            @invoices << Invoice.new(invoice_attributes)
+        end
     end
 
     def load_items(item_file_path)

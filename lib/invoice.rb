@@ -6,7 +6,7 @@ class Invoice
         @customer_id = invoice_attributes[:customer_id]
         @merchant_id = invoice_attributes[:merchant_id]
         @status = invoice_attributes[:status]
-        @created_at = invoice_attributes[:invoice_attributes]
+        @created_at = invoice_attributes[:created_at]
         @updated_at = invoice_attributes[:updated_at]
     end
 
