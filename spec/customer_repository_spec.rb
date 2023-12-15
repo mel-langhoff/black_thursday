@@ -22,8 +22,9 @@ RSpec.describe ItemRepository do
 
     end
 
-    xit "#find_by_id" do
-        expect(@customerrepository.find_by_id(263395237)).to be_an_instance_of Item
+    it "#find_by_id" do
+        expect(@customerrepository.find_by_id(1)).to be_an_instance_of Customer
+        expect(@customerrepository.find_by_id(1).first_name).to eq("Joey")
     end
 
     xit "#find_by_name" do

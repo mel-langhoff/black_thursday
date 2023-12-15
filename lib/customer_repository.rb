@@ -29,8 +29,8 @@ class CustomerRepository
     end
 
     def find_by_id(id)
-        @transactions.find do |transaction|
-            transaction.id.to_i == id.to_i
+        @customers.find do |customer|
+            customer.id.to_i == id.to_i
         end
     end
 
