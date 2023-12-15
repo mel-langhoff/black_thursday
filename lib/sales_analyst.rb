@@ -1,5 +1,5 @@
 class SalesAnalyst
-    attr_accessor :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine, :item_repository, :invoices
+    attr_accessor :list_of_all_invoices, :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine, :item_repository, :invoices
 
     def average_items_per_merchant  
         @total_items = @items.items.size.to_f
@@ -48,8 +48,18 @@ class SalesAnalyst
     end
 
     def average_invoices_per_merchant 
-        @total_invoices = @invoices.invoices.size.to_f
+        @total_invoices = @invoices.invoices.length.to_f
         @total_merchants = @merchants.merchants.size.to_f
         (@total_invoices / @total_merchants).round(2)
+    end
+
+    def average_invoices_per_merchant_standard_deviation
+        mean = average_invoices_per_merchant
+        squared_diff_sum = @merchants.merchants.each.reduce(0) do |sum, merchant|
+            invoices_count = @invoices.find_all_by_merchant_id(merchant.id).length
+            sum + (invoices_count - mean) ** 2
+        end
+        standard_deviation = Math.sqrt(squared_diff_sum / @merchants.all.length)
+        standard_deviation.round(2)
     end
 end
