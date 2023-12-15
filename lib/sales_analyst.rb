@@ -51,7 +51,4 @@ class SalesAnalyst
             item.unit_price.to_f > set_limit
         end
     end
-
-
-
 end
