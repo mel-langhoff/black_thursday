@@ -27,22 +27,31 @@ RSpec.describe TransactionRepository do
         expect(invoices_by_id.first.credit_card_number).to eq("4068631943231473")
     end
 
-    xit "#find_all_by_invoice_id" do
-        all_invoice_ids = @invoiceitemrepository.find_all_by_invoice_id(1)
-        expect(all_invoice_ids).to be_a Array
-        expect(all_invoice_ids.first).to be_an_instance_of InvoiceItem
-        expect(all_invoice_ids.first.unit_price).to eq("13635")
+    xit "#find_all_by_credit_card_number" do
+        queried_credit_card_number = @transactionrepository.find_all_by_credit_card_number(4068631943231473)
+        expect(queried_credit_card_number).to be_a Array
+        expect(queried_credit_card_number.first).to be_an_instance_of InvoiceItem
+        expect(queried_credit_card_number.first.invoice_id).to eq(1)
     end
 
-    xit "#create" do
-        initial_count = @invoiceitemrepository.invoice_items.length
-        invoice_item_attributes = ({:id => 1, :item_id => 263519844, :invoice_id => 1, :quantity => 5, :unit_price => 13635, :created_at => Date.today - 1, :updated_at => Date.today})
-        new_invoice_item = @invoiceitemrepository.create(invoice_item_attributes)
+    it "#create" do
+        initial_count = @transactionrepository.transactions.length
+        transaction_attributes = ({
+            :id => 6,
+            :invoice_id => 8,
+            :credit_card_number => "4242424242424242",
+            :credit_card_expiration_date => "0220",
+            :result => "success",
+            :quantity => 3,
+            :created_at => Date.today - 1,
+            :updated_at => Date.today
+          })
+        new_transaction = @transactionrepository.create(transaction_attributes)
 
-        expect(new_invoice_item).to be_an_instance_of InvoiceItem
-        expect(new_invoice_item.id).to eq(1)
-        expect(new_invoice_item.unit_price).to eq(13635)
-        expect(@invoiceitemrepository.invoice_items.length).to eq(initial_count + 1)
+        expect(new_transaction).to be_an_instance_of Transaction
+        expect(new_transaction.id).to eq(6)
+        expect(new_transaction.result).to eq("success")
+        expect(@transactionrepository.transactions.length).to eq(initial_count + 1)
     end
 
     xit "#update" do

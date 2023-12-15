@@ -44,17 +44,17 @@ class TransactionRepository
         end
     end
 
-    # def find_all_by_invoice_id(invoice_id)
-    #     @invoice_items.find_all do |invoice|
-    #     invoice.invoice_id.to_s.include?(invoice_id.to_s)
-    #     end
-    # end
+    def find_all_by_credit_card_number(credit_card_number)
+        @transactions.find_all do |transaction|
+        transaction.credit_card_number.to_s.include?(credit_card_number.to_s)
+        end
+    end
 
-    # def create(invoice_item_attributes)
-    #     new_invoice_item = InvoiceItem.new(invoice_item_attributes)
-    #     @invoice_items << new_invoice_item
-    #     new_invoice_item
-    # end
+    def create(transaction_attributes)
+        new_transaction = Transaction.new(transaction_attributes)
+        @transactions << new_transaction
+        new_transaction
+    end
 
     # def update(id, invoice_item_attributes)
     #     invoice_item_to_update = find_by_id(id)
