@@ -63,16 +63,16 @@ class InvoiceRepository
     def update(id, invoice_attributes)
         invoice_to_update = find_by_id(id)
         if invoice_to_update
-            invoice_to_update.id = invoice_attributes[:id] if invoice_attributes[:id]
+            invoice_to_update.status = invoice_attributes[:status]
         end
-        merchant_to_update
+        invoice_to_update
     end
 
     def delete(id)
-        @invoice.reject! do |invoice|
+        @invoices.reject! do |invoice|
             invoice.id == id
         end
     end
 
-
 end
+

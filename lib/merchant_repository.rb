@@ -50,7 +50,7 @@ class MerchantRepository
     def update(id, merchant_attributes)
         merchant_to_update = find_by_id(id)
         if merchant_to_update
-          merchant_to_update.name = merchant_attributes[:name] if merchant_attributes[:name]
+          merchant_to_update.name = merchant_attributes[:name]
         end
         merchant_to_update
     end

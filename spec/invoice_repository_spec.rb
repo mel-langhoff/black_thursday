@@ -54,4 +54,15 @@ RSpec.describe InvoiceRepository do
         expect(@invoicerepository.invoices.length).to eq(initial_count + 1)
     end
 
+    it "#update" do
+        original_status = { status: "pending" }
+        @invoicerepository.create(original_status)
+
+        updated_status = { status: "shipped" }
+        updated_invoice = @invoicerepository.update(1, updated_status)
+
+        expect(updated_invoice.status).to eq("shipped")
+        expect(updated_invoice).to be_an_instance_of Invoice
+    end
+
 end
