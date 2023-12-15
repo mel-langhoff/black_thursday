@@ -1,6 +1,5 @@
 class SalesEngine
-    attr_reader :items, :merchants, :item_file_path, :merchant_file_path
-
+    attr_reader :items, :merchants, :item_file_path, :merchant_file_path, :list_of_all_items, :list_of_all_merchants, :file_paths
     def initialize
         @items = []
         @merchants = []
@@ -26,6 +25,8 @@ class SalesEngine
             @items << Item.new(id: id.to_i, name: name, description: description, unit_price: unit_price, merchant_id: merchant_id, created_at: created_at, updated_at: updated_at)
         end
         @items = item_repository
+        @list_of_all_items = item_repository.items
+        item_repository
     end
 
     def load_merchants(merchant_file_path)
@@ -38,6 +39,8 @@ class SalesEngine
             @merchants << Merchant.new(id: id.to_i, name: name, created_at: created_at, updated_at: updated_at)
         end
         @merchants = merchant_repository
+        @list_of_all_merchants = merchant_repository.merchants
+        merchant_repository
     end
 
     def analyst
