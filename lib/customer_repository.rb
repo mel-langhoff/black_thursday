@@ -40,11 +40,11 @@ class CustomerRepository
         end
     end
 
-    # def find_all_by_credit_card_number(credit_card_number)
-    #     @transactions.find_all do |transaction|
-    #     transaction.credit_card_number.to_s.include?(credit_card_number.to_s)
-    #     end
-    # end
+    def find_all_by_last_name(last_name)
+        @customers.find_all do |customer|
+        customer.last_name.to_s.include?(last_name.to_s)
+        end
+    end
 
     # def create(transaction_attributes)
     #     new_transaction = Transaction.new(transaction_attributes)

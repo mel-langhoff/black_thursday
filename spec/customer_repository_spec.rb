@@ -33,9 +33,9 @@ RSpec.describe ItemRepository do
         expect(customer.first).to be_an_instance_of Customer
     end
 
-    xit "#find_all_by_name" do
-        all_by_name = @customerrepository.find_all_by_name("RealPush")
-        expect(all_by_name.first.id).to eq(263395237)
+    it "#find_all_by_last_namee" do
+        all_by_last_name = @customerrepository.find_all_by_last_name("Ondricka")
+        expect(all_by_last_name.first.first_name).to eq("Joey")
     end
 
     xit "#find_all_by_description" do
