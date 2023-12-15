@@ -17,9 +17,20 @@ class SalesAnalyst
         total_of_prices = merchant_items.sum do |item| 
             item.unit_price.to_f
         end
-        average_price = total_of_prices / merchant_items.length
-        BigDecimal(average_price, 2)
+        average_price_of_merchant = total_of_prices / merchant_items.length
+        BigDecimal(average_price_of_merchant, 2)
       end
+
+    def average_average_price_per_merchant
+        merchant_ids = @items.items.map do |item|
+            item.merchant_id.to_i
+        end
+        merchant_averages = merchant_ids.map do |merchant_id|
+            average_item_price_per_merchant(merchant_id)
+        end
+        total_average = merchant_averages.sum / merchant_averages.length
+        BigDecimal(total_average, 2)
+    end
 
     def average_items_per_merchant_standard_deviation
         mean = average_items_per_merchant
