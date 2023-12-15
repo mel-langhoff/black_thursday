@@ -27,8 +27,10 @@ RSpec.describe ItemRepository do
         expect(@customerrepository.find_by_id(1).first_name).to eq("Joey")
     end
 
-    xit "#find_by_name" do
-        expect(@customerrepository.find_by_name("510+ RealPush Icon Set")).to be_an_instance_of Item
+    it "#find_all_by_first_name" do
+        customer = @customerrepository.find_all_by_first_name("Joey")
+        expect(customer).to be_a Array
+        expect(customer.first).to be_an_instance_of Customer
     end
 
     xit "#find_all_by_name" do

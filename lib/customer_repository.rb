@@ -34,11 +34,11 @@ class CustomerRepository
         end
     end
 
-    # def find_all_by_invoice_id(invoice_id)
-    #     @transactions.find_all do |transaction|
-    #     transaction.invoice_id.to_s.include?(invoice_id.to_s)
-    #     end
-    # end
+    def find_all_by_first_name(first_name)
+        @customers.find_all do |customer|
+        customer.first_name.to_s.include?(first_name.to_s)
+        end
+    end
 
     # def find_all_by_credit_card_number(credit_card_number)
     #     @transactions.find_all do |transaction|
