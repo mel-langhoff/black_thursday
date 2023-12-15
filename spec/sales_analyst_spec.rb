@@ -56,4 +56,14 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_an_instance_of Merchant
     end
 
+    it "#top_days_by_invoice_count" do
+        expect(@sales_analyst.top_days_by_invoice_count).to be_a Array
+        expect(@sales_analyst.top_days_by_invoice_count.first). to be_a String
+    end
+
+    it "#invoice_status" do
+        expect(@sales_analyst.invoice_status(pending)).to be_a Float
+        expect(@sales_analyst.invoice_status(pending)).to eq(29.55)
+    end
+
 end
