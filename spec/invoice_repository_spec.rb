@@ -43,4 +43,15 @@ RSpec.describe InvoiceRepository do
         expect(all_statuses.first.merchant_id).to eq(12335938)
     end
 
+    it "#create" do
+        initial_count = @invoicerepository.invoices.length
+        invoice_attributes = ({:id => 1, :customer_id => 1, :merchant_id => 12335938, :status => "pending", :created_at => Date.today - 1, :updated_at => Date.today})
+        new_invoice = @invoicerepository.create(invoice_attributes)
+
+        expect(new_invoice).to be_an_instance_of Invoice
+        expect(new_invoice.id).to eq(1)
+        expect(new_invoice.merchant_id).to eq(12335938)
+        expect(@invoicerepository.invoices.length).to eq(initial_count + 1)
+    end
+
 end
