@@ -1,12 +1,5 @@
 class SalesEngine
-    attr_reader :customers, :transactions, :items, :merchants, :item_file_path, :merchant_file_path, :list_of_all_items, :list_of_all_merchants, :file_paths, :invoices
-    def initialize
-        @items = []
-        @merchants = []
-        @invoices = []
-        @transactions = []
-        @customers = []
-    end
+    attr_reader :customers, :transactions, :items, :merchants, :invoices
 
     def self.from_csv(file_paths)
         sales_engine = SalesEngine.new
