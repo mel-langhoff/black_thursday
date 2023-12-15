@@ -28,9 +28,9 @@ class TransactionRepository
         end
     end
 
-    # def all
-    #     @invoice_items
-    # end
+    def all
+        @transactions
+    end
 
     # def find_by_id(id)
     #     @invoice_items.find do |invoice_item|

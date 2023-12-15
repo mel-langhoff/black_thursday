@@ -3,7 +3,7 @@ require "./spec/spec_helper"
 RSpec.describe InvoiceRepository do
     before :each do
         @invoicerepository = InvoiceRepository.new("./data/invoices.csv")
-        @sales_analyst = SalesAnalyst.new
+        # @sales_analyst = SalesAnalyst.new
     end
 
     it "exists" do
