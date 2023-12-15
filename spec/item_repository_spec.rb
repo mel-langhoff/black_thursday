@@ -17,6 +17,8 @@ RSpec.describe ItemRepository do
 
     it "#all" do
         expect(@itemrepository.items.first).to be_an_instance_of Item
+        expect(@itemrepository.items.first.name).to include("510+ RealPush Icon Set")
+
     end
 
     it "#find_by_id" do
