@@ -60,11 +60,9 @@ class CustomerRepository
         customer_to_update
     end
 
-    # end
-
-    # def delete(id)
-    #     @transactions.reject! do |transaction|
-    #         transaction.id.to_i == id.to_i
-    #     end
-    # end
+    def delete(id)
+        @customers.reject! do |customer|
+            customer.id.to_i == id.to_i
+        end
+    end
 end

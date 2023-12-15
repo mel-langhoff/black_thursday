@@ -66,15 +66,15 @@ RSpec.describe ItemRepository do
         expect(updated_customer).to be_an_instance_of Customer
     end
 
-    xit "#delete" do
-        attributes = { id: 263395237, name: "ToDelete" }
+    it "#delete" do
+        attributes = { id: 1, name: "ToDelete" }
         @customerrepository.create(attributes)
 
-        expect(@customerrepository.find_by_id(263395237)).to be_an_instance_of Item
+        expect(@customerrepository.find_by_id(1)).to be_an_instance_of Customer
 
-        @customerrepository.delete(263395237)
+        @customerrepository.delete(1)
 
-        expect(@customerrepository.find_by_id(263395237)).to be_nil
+        expect(@customerrepository.find_by_id(1)).to be_nil
     end
 
 end
