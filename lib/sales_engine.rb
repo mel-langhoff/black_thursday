@@ -1,10 +1,11 @@
 class SalesEngine
-    attr_reader :transactions, :items, :merchants, :item_file_path, :merchant_file_path, :list_of_all_items, :list_of_all_merchants, :file_paths, :invoices
+    attr_reader :customers, :transactions, :items, :merchants, :item_file_path, :merchant_file_path, :list_of_all_items, :list_of_all_merchants, :file_paths, :invoices
     def initialize
         @items = []
         @merchants = []
         @invoices = []
         @transactions = []
+        @customers = []
     end
 
     def self.from_csv(file_paths)
@@ -13,10 +14,32 @@ class SalesEngine
         sales_engine.load_merchants(file_paths[:merchants])
         sales_engine.load_invoices(file_paths[:invoices])
         sales_engine.load_transactions(file_paths[:transactions])
+        sales_engine.load_customers(file_paths[:customers])
         sales_engine
     end
 
+    def load_customers(customers_file_path)
+        @customers = []
+        CSV.foreach(customers_file_path, headers: true) do |customer_attributes|
+            id = customer_attributes["id"].to_i
+            first_name = customer_attributes["first_name"]
+            last_name = customer_attributes["last_name"]
+            created_at = Date.today - 1
+            updated_at = Date.today
+            customer_attributes = {
+                id: id.to_i,
+                first_name: first_name,
+                last_name: last_name,
+                created_at: created_at,
+                updated_at: updated_at
+            }
+            @customers << Customer.new(customer_attributes)
+        end
+        @customers
+    end
+
     def load_transactions(transactions_file_path)
+        @transactions = []
         CSV.foreach(transactions_file_path, headers: true) do |transaction_attributes|
             id = transaction_attributes["id"].to_i
             invoice_id = transaction_attributes["invoice_id"]
@@ -36,9 +59,11 @@ class SalesEngine
             }
             @transactions << Transaction.new(transaction_attributes)
         end
+        @transactions   
     end
 
     def load_invoices(invoice_file_path)
+        @invoices = []
         invoice_repository = InvoiceRepository.new(invoice_file_path)
         CSV.foreach(invoice_file_path, headers: true) do |row|
             id = row["id"].to_i
@@ -57,12 +82,11 @@ class SalesEngine
             }
             @invoices << Invoice.new(invoice_attributes)
         end
-        @invoices = invoice_repository
-        @list_of_all_invoices = invoice_repository.invoices
-        invoice_repository
+        @invoices
     end
 
     def load_items(item_file_path)
+        @items = []
         item_repository = ItemRepository.new(item_file_path)
         CSV.foreach(item_file_path, headers: true) do |row|
             id = row["id"].to_i
@@ -74,12 +98,11 @@ class SalesEngine
             updated_at = row["updated_at"]
             @items << Item.new(id: id.to_i, name: name, description: description, unit_price: unit_price, merchant_id: merchant_id, created_at: created_at, updated_at: updated_at)
         end
-        @items = item_repository
-        @list_of_all_items = item_repository.items
-        item_repository
+        @items
     end
 
     def load_merchants(merchant_file_path)
+        @merchants = []
         merchant_repository = MerchantRepository.new(merchant_file_path)
         CSV.foreach(merchant_file_path, headers: true) do |row|
             id = row["id"].to_i
@@ -88,9 +111,7 @@ class SalesEngine
             updated_at = row["updated_at"]
             @merchants << Merchant.new(id: id.to_i, name: name, created_at: created_at, updated_at: updated_at)
         end
-        @merchants = merchant_repository
-        @list_of_all_merchants = merchant_repository.merchants
-        merchant_repository
+        @merchants 
     end
 
     def analyst
