@@ -52,12 +52,13 @@ class CustomerRepository
         new_customer
     end
 
-    # def update(id, transaction_attributes)
-    #     transaction_to_update = find_by_id(id)
-    #     if transaction_to_update
-    #         transaction_to_update.result = transaction_attributes[:result]
-    #     end
-    #     transaction_to_update
+    def update(id, customer_attributes)
+        customer_to_update = find_by_id(id)
+        if customer_to_update
+            customer_to_update.first_name = customer_attributes[:first_name]
+        end
+        customer_to_update
+    end
 
     # end
 

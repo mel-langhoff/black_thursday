@@ -55,15 +55,15 @@ RSpec.describe ItemRepository do
         expect(@customerrepository.customers.length).to eq(initial_count + 1)
     end
 
-    xit "#update" do
-        original_attribute = { name: "Name" }
-        item1 = @customerrepository.create(original_attribute)
+    it "#update" do
+        original_attribute = { id: 1, first_name: "Joey" }
+        customer = @customerrepository.create(original_attribute)
     
-        updated_attribute = { name: "New Name" }
-        updated_item = @customerrepository.update(item1.id, updated_attribute)
+        updated_attribute = { first_name: "New Name" }
+        updated_customer = @customerrepository.update(customer.id, updated_attribute)
     
-        expect(updated_item.name).to eq("New Name")
-        expect(updated_item).to be_an_instance_of(Item)
+        expect(updated_customer.first_name).to eq("New Name")
+        expect(updated_customer).to be_an_instance_of Customer
     end
 
     xit "#delete" do
