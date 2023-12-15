@@ -56,14 +56,14 @@ class TransactionRepository
         new_transaction
     end
 
-    # def update(id, invoice_item_attributes)
-    #     invoice_item_to_update = find_by_id(id)
-    #     if invoice_item_to_update
-    #         invoice_item_to_update.quantity = invoice_item_attributes[:quantity]
-    #     end
-    #     invoice_item_to_update
+    def update(id, transaction_attributes)
+        transaction_to_update = find_by_id(id)
+        if transaction_to_update
+            transaction_to_update.result = transaction_attributes[:result]
+        end
+        transaction_to_update
 
-    # end
+    end
 
     # def delete(id)
     #     @invoice_items.reject! do |invoice_item|

@@ -54,15 +54,15 @@ RSpec.describe TransactionRepository do
         expect(@transactionrepository.transactions.length).to eq(initial_count + 1)
     end
 
-    xit "#update" do
-        original_quantity = { id: 1, quantity: "5" }
-        @invoiceitemrepository.create(original_quantity)
+    it "#update" do
+        original_result = { id: 1, result: "pending" }
+        @transactionrepository.create(original_result)
 
-        updated_quantity = { id: 1, quantity: "6" }
-        updated_invoice_item = @invoiceitemrepository.update(1, updated_quantity)
+        updated_result = { id: 1, result: "success" }
+        updated_transaction = @transactionrepository.update(1, updated_result)
 
-        expect(updated_invoice_item.quantity).to eq("6")
-        expect(updated_invoice_item).to be_an_instance_of InvoiceItem
+        expect(updated_transaction.result).to eq("success")
+        expect(updated_transaction).to be_an_instance_of Transaction
     end
 
     xit "#delete" do
