@@ -28,4 +28,11 @@ RSpec.describe InvoiceRepository do
         expect(customers_by_id.first).to be_an_instance_of Invoice
         expect(customers_by_id.first.status).to eq("pending")
     end
+
+    it "#find_all_by_merchant_id" do
+        merchants_by_id = @invoicerepository.find_all_by_merchant_id(12335938)
+        expect(merchants_by_id).to be_a Array
+        expect(merchants_by_id.first).to be_an_instance_of Invoice
+        expect(merchants_by_id.first.status).to eq("pending")
+    end
 end

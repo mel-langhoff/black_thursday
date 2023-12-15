@@ -44,7 +44,7 @@ class InvoiceRepository
 
     def find_all_by_merchant_id(merchant_id)
         @invoices.find_all do |invoice|
-        invoice.merchant_id.to_i.include?(merchant_id.to_i)
+        invoice.merchant_id.to_s.include?(merchant_id.to_s)
         end
     end
 
