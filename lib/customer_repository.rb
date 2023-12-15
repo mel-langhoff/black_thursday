@@ -1,7 +1,7 @@
 class CustomerRepository
     attr_accessor :customers
 
-    def initialize
+    def initialize(customers_file_path)
         @customers = []
         load_customers(customers_file_path)
     end
@@ -13,7 +13,7 @@ class CustomerRepository
             last_name = customer_attributes["last_name"]
             created_at = Date.today - 1
             updated_at = Date.today
-            transaction_attributes = {
+            customer_attributes = {
                 id: id.to_i,
                 first_name: first_name,
                 last_name: last_name,
@@ -28,11 +28,11 @@ class CustomerRepository
         @customers
     end
 
-    # def find_by_id(id)
-    #     @transactions.find do |transaction|
-    #         transaction.id.to_i == id.to_i
-    #     end
-    # end
+    def find_by_id(id)
+        @transactions.find do |transaction|
+            transaction.id.to_i == id.to_i
+        end
+    end
 
     # def find_all_by_invoice_id(invoice_id)
     #     @transactions.find_all do |transaction|
