@@ -50,17 +50,11 @@ class InvoiceItemRepository
         end
     end
 
-    # def find_all_by_status(status)
-    #     @invoices.find_all do |invoice|
-    #     invoice.status.to_s.include?(status.to_s)
-    #     end
-    # end
-
-    # def create(invoice_attributes)
-    #     new_invoice = Invoice.new(invoice_attributes)
-    #     @invoices << new_invoice
-    #     new_invoice
-    # end
+    def create(invoice_item_attributes)
+        new_invoice_item = InvoiceItem.new(invoice_item_attributes)
+        @invoice_items << new_invoice_item
+        new_invoice_item
+    end
 
     # def update(id, invoice_attributes)
     #     invoice_to_update = find_by_id(id)

@@ -34,4 +34,15 @@ RSpec.describe InvoiceItemRepository do
         expect(all_invoice_ids.first.unit_price).to eq("13635")
     end
 
+    it "#create" do
+        initial_count = @invoiceitemrepository.invoice_items.length
+        invoice_item_attributes = ({:id => 1, :item_id => 263519844, :invoice_id => 1, :quantity => 5, :unit_price => 13635, :created_at => Date.today - 1, :updated_at => Date.today})
+        new_invoice_item = @invoiceitemrepository.create(invoice_item_attributes)
+
+        expect(new_invoice_item).to be_an_instance_of InvoiceItem
+        expect(new_invoice_item.id).to eq(1)
+        expect(new_invoice_item.unit_price).to eq(13635)
+        expect(@invoiceitemrepository.invoice_items.length).to eq(initial_count + 1)
+    end
+
 end
