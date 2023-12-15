@@ -1,5 +1,5 @@
 class SalesAnalyst
-    attr_accessor :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine
+    attr_accessor :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine, :item_repository
 
     def initialize
         @items = []
@@ -42,5 +42,16 @@ class SalesAnalyst
 
         standard_deviation.round(2)
     end   
+
+    def golden_items
+        average_price = average_average_price_per_merchant
+        standard_deviation = average_items_per_merchant_standard_deviation
+        set_limit = average_price + (standard_deviation * 2)
+        @items.items.find_all do |item|
+            item.unit_price.to_f > set_limit
+        end
+    end
+
+
 
 end

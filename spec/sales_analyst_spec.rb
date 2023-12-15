@@ -32,4 +32,8 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.average_average_price_per_merchant).to be_a BigDecimal
     end
 
+    it "#golden_items" do
+        expect(@sales_analyst.golden_items).to be_a Array
+    end
+
 end
