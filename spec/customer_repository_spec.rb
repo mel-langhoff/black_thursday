@@ -38,40 +38,21 @@ RSpec.describe ItemRepository do
         expect(all_by_last_name.first.first_name).to eq("Joey")
     end
 
-    xit "#find_all_by_description" do
-        all_by_description = @customerrepository.find_all_by_description("100% vector")
-        expect(all_by_description.first.name).to include("510")
-        expect(all_by_description.first.id).to eq(263395237)
-    end
+    it "#create" do
+        initial_count = @customerrepository.customers.length
+        customer_attributes = ({
+            :id => 1,
+            :first_name => "Joey",
+            :last_name => "Clarke",
+            :created_at => Date.today - 1,
+            :updated_at => Date.today
+          })
+        new_customer = @customerrepository.create(customer_attributes)
 
-    xit "#find_all_by_price" do
-        all_by_price = @customerrepository.find_all_by_price(1300)
-        expect(all_by_price.first.description).to include("Glitter")
-    end
-
-    xit "#find_all_by_merchant_id" do
-        all_by_merchant_id = @customerrepository.find_all_by_merchant_id(12334185)
-        expect(all_by_merchant_id.first.description).to include("scrabble")
-    end
-
-    xit "#find_all_by_price_range" do
-        item1 = Item.new(id: 1, name: "Glitter Item", unit_price: BigDecimal('1300.00'))
-        item2 = Item.new(id: 2, name: "Another Item", unit_price: BigDecimal('1325.00'))
-        item3 = Item.new(id: 3, name: "Disney Item", unit_price: BigDecimal('1350.00'))
-        item4 = Item.new(id: 4, name: "Outside Range Item", unit_price: BigDecimal('1400.00'))
-        @customerrepository.items = [item1, item2, item3, item4]
-        all_by_price_range = @customerrepository.find_all_by_price_range(BigDecimal('1300.00')..BigDecimal('1350.00'))
-
-        expect(all_by_price_range).to be_an(Array).or be_nil
-        expect(all_by_price_range.first).to be_an_instance_of Item
-        expect(all_by_price_range.map(&:unit_price)).to all(be_between(BigDecimal('1300.00'), BigDecimal('1350.00')))
-        expect(all_by_price_range.first.name).to include("Glitter")
-        expect(all_by_price_range.last.name).to include("Disney")
-    end
-
-    xit "#create" do
-        expect(@customerrepository.items.first).to be_an_instance_of Item
-        expect(@customerrepository.items.first.id).to eq(263395237)
+        expect(new_customer).to be_an_instance_of Customer
+        expect(new_customer.id).to eq(1)
+        expect(new_customer.first_name).to eq("Joey")
+        expect(@customerrepository.customers.length).to eq(initial_count + 1)
     end
 
     xit "#update" do

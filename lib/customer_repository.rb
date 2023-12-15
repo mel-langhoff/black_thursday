@@ -46,11 +46,11 @@ class CustomerRepository
         end
     end
 
-    # def create(transaction_attributes)
-    #     new_transaction = Transaction.new(transaction_attributes)
-    #     @transactions << new_transaction
-    #     new_transaction
-    # end
+    def create(customer_attributes)
+        new_customer = Customer.new(customer_attributes)
+        @customers << new_customer
+        new_customer
+    end
 
     # def update(id, transaction_attributes)
     #     transaction_to_update = find_by_id(id)
