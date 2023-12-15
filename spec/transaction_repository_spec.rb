@@ -20,11 +20,11 @@ RSpec.describe TransactionRepository do
         expect(@transactionrepository.find_by_id(1).invoice_id).to eq("2179")
     end
 
-    xit "#find_all_by_item_id" do
-        items_by_id = @invoiceitemrepository.find_all_by_item_id(263519844)
-        expect(items_by_id).to be_a Array
-        expect(items_by_id.first).to be_an_instance_of InvoiceItem
-        expect(items_by_id.first.unit_price).to eq("13635")
+    it "#find_all_by_invoice_id" do
+        invoices_by_id = @transactionrepository.find_all_by_invoice_id(1)
+        expect(invoices_by_id).to be_a Array
+        expect(invoices_by_id.first).to be_an_instance_of Transaction
+        expect(invoices_by_id.first.credit_card_number).to eq("4068631943231473")
     end
 
     xit "#find_all_by_invoice_id" do
