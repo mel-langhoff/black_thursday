@@ -56,4 +56,15 @@ RSpec.describe InvoiceItemRepository do
         expect(updated_invoice_item).to be_an_instance_of InvoiceItem
     end
 
+    it "#delete" do
+        attributes = { id: 1, item_id: "263519844" }
+        @invoiceitemrepository.create(attributes)
+
+        expect(@invoiceitemrepository.find_by_id(1)).to be_an_instance_of InvoiceItem
+
+        @invoiceitemrepository.delete(1)
+
+        expect(@invoiceitemrepository.find_by_id(1)).to be_nil
+    end
+
 end

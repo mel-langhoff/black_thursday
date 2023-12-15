@@ -65,11 +65,11 @@ class InvoiceItemRepository
 
     end
 
-    # def delete(id)
-    #     @invoices.reject! do |invoice|
-    #         invoice.id == id
-    #     end
-    # end
+    def delete(id)
+        @invoice_items.reject! do |invoice_item|
+            invoice_item.id.to_i == id.to_i
+        end
+    end
 end
 
 
