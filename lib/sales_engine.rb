@@ -1,9 +1,10 @@
 class SalesEngine
-    attr_reader :items, :merchants, :item_file_path, :merchant_file_path, :list_of_all_items, :list_of_all_merchants, :file_paths, :invoices
+    attr_reader :transactions, :items, :merchants, :item_file_path, :merchant_file_path, :list_of_all_items, :list_of_all_merchants, :file_paths, :invoices
     def initialize
         @items = []
         @merchants = []
         @invoices = []
+        @transactions = []
     end
 
     def self.from_csv(file_paths)
@@ -11,7 +12,30 @@ class SalesEngine
         sales_engine.load_items(file_paths[:items])
         sales_engine.load_merchants(file_paths[:merchants])
         sales_engine.load_invoices(file_paths[:invoices])
+        sales_engine.load_transactions(file_paths[:transactions])
         sales_engine
+    end
+
+    def load_transactions(transactions_file_path)
+        CSV.foreach(transactions_file_path, headers: true) do |transaction_attributes|
+            id = transaction_attributes["id"].to_i
+            invoice_id = transaction_attributes["invoice_id"]
+            credit_card_number = transaction_attributes["credit_card_number"]
+            credit_card_expiration_date = transaction_attributes["credit_card_expiration_date"]
+            result = transaction_attributes["result"]
+            created_at = Date.today - 1
+            updated_at = Date.today
+            transaction_attributes = {
+                id: id.to_i,
+                invoice_id: invoice_id,
+                credit_card_number: credit_card_number,
+                credit_card_expiration_date: credit_card_expiration_date,
+                result: result,
+                created_at: created_at,
+                updated_at: updated_at
+            }
+            @transactions << Transaction.new(transaction_attributes)
+        end
     end
 
     def load_invoices(invoice_file_path)
