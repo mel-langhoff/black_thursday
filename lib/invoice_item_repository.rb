@@ -71,13 +71,3 @@ class InvoiceItemRepository
         end
     end
 end
-
-
-
-# all - returns an array of all known InvoiceItem instances
-# find_by_id - returns either nil or an instance of InvoiceItem with a matching ID
-# find_all_by_item_id - returns either [] or one or more matches which have a matching item ID
-# find_all_by_invoice_id - returns either [] or one or more matches which have a matching invoice ID
-# create(attributes) - create a new InvoiceItem instance with the provided attributes. The new InvoiceItem’s id should be the current highest InvoiceItem id plus 1.
-# update(id, attribute) - update the InvoiceItem instance with the corresponding id with the provided attributes. Only the invoice_item’s quantity and unit_price can be updated. This method will also change the invoice_item’s updated_at attribute to the current time.
-# delete(id) - delete the InvoiceItem instance with the corresponding id
