@@ -10,7 +10,16 @@ class SalesAnalyst
         @total_items = @items.items.size.to_f
         @total_merchants = @merchants.merchants.size.to_f
         (total_items / total_merchants).round(2)
-     end
+    end
+
+    def average_item_price_per_merchant(merchant_id)
+        merchant_items = @items.find_all_by_merchant_id(merchant_id)    
+        total_of_prices = merchant_items.sum do |item| 
+            item.unit_price.to_f
+        end
+        average_price = total_of_prices / merchant_items.length
+        BigDecimal(average_price, 2)
+      end
 
     def average_items_per_merchant_standard_deviation
         mean = average_items_per_merchant
@@ -21,8 +30,6 @@ class SalesAnalyst
         standard_deviation = Math.sqrt(squared_diff_sum / @merchants.all.length)
 
         standard_deviation.round(2)
-    end
-
-    
+    end   
 
 end

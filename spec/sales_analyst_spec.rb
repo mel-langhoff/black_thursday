@@ -24,4 +24,8 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
 
+    it "#average_items_price_per_merchant" do
+        expect(@sales_analyst.average_item_price_per_merchant(12334159)).to be_a BigDecimal
+    end 
+
 end
