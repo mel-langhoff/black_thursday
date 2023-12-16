@@ -38,51 +38,36 @@ class InvoiceItemRepository
         end
     end
 
-    # def find_all_by_customer_id(customer_id)
-    #     @invoices.find_all do |invoice|
-    #     invoice.customer_id.to_s.include?(customer_id.to_s)
-    #     end
-    # end
+    def find_all_by_item_id(item_id)
+        @invoice_items.find_all do |invoice|
+        invoice.item_id.to_s.include?(item_id.to_s)
+        end
+    end
 
-    # def find_all_by_merchant_id(merchant_id)
-    #     @invoices.find_all do |invoice|
-    #     invoice.merchant_id.to_s.include?(merchant_id.to_s)
-    #     end
-    # end
+    def find_all_by_invoice_id(invoice_id)
+        @invoice_items.find_all do |invoice|
+        invoice.invoice_id.to_s.include?(invoice_id.to_s)
+        end
+    end
 
-    # def find_all_by_status(status)
-    #     @invoices.find_all do |invoice|
-    #     invoice.status.to_s.include?(status.to_s)
-    #     end
-    # end
+    def create(invoice_item_attributes)
+        new_invoice_item = InvoiceItem.new(invoice_item_attributes)
+        @invoice_items << new_invoice_item
+        new_invoice_item
+    end
 
-    # def create(invoice_attributes)
-    #     new_invoice = Invoice.new(invoice_attributes)
-    #     @invoices << new_invoice
-    #     new_invoice
-    # end
+    def update(id, invoice_item_attributes)
+        invoice_item_to_update = find_by_id(id)
+        if invoice_item_to_update
+            invoice_item_to_update.quantity = invoice_item_attributes[:quantity]
+        end
+        invoice_item_to_update
 
-    # def update(id, invoice_attributes)
-    #     invoice_to_update = find_by_id(id)
-    #     if invoice_to_update
-    #         invoice_to_update.status = invoice_attributes[:status]
-    #     end
-    #     invoice_to_update
-    # end
+    end
 
-    # def delete(id)
-    #     @invoices.reject! do |invoice|
-    #         invoice.id == id
-    #     end
-    # end
+    def delete(id)
+        @invoice_items.reject! do |invoice_item|
+            invoice_item.id.to_i == id.to_i
+        end
+    end
 end
-
-
-
-# all - returns an array of all known InvoiceItem instances
-# find_by_id - returns either nil or an instance of InvoiceItem with a matching ID
-# find_all_by_item_id - returns either [] or one or more matches which have a matching item ID
-# find_all_by_invoice_id - returns either [] or one or more matches which have a matching invoice ID
-# create(attributes) - create a new InvoiceItem instance with the provided attributes. The new InvoiceItem’s id should be the current highest InvoiceItem id plus 1.
-# update(id, attribute) - update the InvoiceItem instance with the corresponding id with the provided attributes. Only the invoice_item’s quantity and unit_price can be updated. This method will also change the invoice_item’s updated_at attribute to the current time.
-# delete(id) - delete the InvoiceItem instance with the corresponding id
