@@ -102,6 +102,8 @@ class SalesAnalyst
         total_of_invoices_in_selected_status = total_of_invoices_in_selected_status = @invoices.count { |invoice| invoice.status == invoice_status }
         ((total_of_invoices_in_selected_status.to_f / total_invoices.to_f) * 100).round(2)
       end
+
+      
 end
 
 

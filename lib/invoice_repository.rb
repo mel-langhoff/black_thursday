@@ -3,6 +3,7 @@ class InvoiceRepository
 
     def initialize(invoice_file_path)
         @invoices = []
+        load_invoices(invoice_file_path)
     end
 
     def load_invoices(invoice_file_path)
@@ -73,4 +74,3 @@ class InvoiceRepository
         end
     end
 end
-
