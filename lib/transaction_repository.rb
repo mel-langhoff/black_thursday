@@ -1,4 +1,9 @@
+require "./lib/modify_object_attributes"
+require "./lib/queries"
 class TransactionRepository
+    include Queries
+    include ModifyObjectAttributes
+    
     attr_accessor :transactions, :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
 
     def initialize(transactions_file_path)
@@ -7,15 +12,15 @@ class TransactionRepository
     end
 
     def load_transactions(transactions_file_path)
-        CSV.foreach(transactions_file_path, headers: true) do |transaction_attributes|
-            id = transaction_attributes["id"].to_i
-            invoice_id = transaction_attributes["invoice_id"]
-            credit_card_number = transaction_attributes["credit_card_number"]
-            credit_card_expiration_date = transaction_attributes["credit_card_expiration_date"]
-            result = transaction_attributes["result"]
+        CSV.foreach(transactions_file_path, headers: true) do |attributes|
+            id = attributes["id"].to_i
+            invoice_id = attributes["invoice_id"]
+            credit_card_number = attributes["credit_card_number"]
+            credit_card_expiration_date = attributes["credit_card_expiration_date"]
+            result = attributes["result"]
             created_at = Date.today - 1
             updated_at = Date.today
-            transaction_attributes = {
+            attributes = {
                 id: id.to_i,
                 invoice_id: invoice_id,
                 credit_card_number: credit_card_number,
@@ -24,24 +29,12 @@ class TransactionRepository
                 created_at: created_at,
                 updated_at: updated_at
             }
-            @transactions << Transaction.new(transaction_attributes)
+            @transactions << Transaction.new(attributes)
         end
     end
 
     def all
         @transactions
-    end
-
-    def find_by_id(id)
-        @transactions.find do |transaction|
-            transaction.id.to_i == id.to_i
-        end
-    end
-
-    def find_all_by_invoice_id(invoice_id)
-        @transactions.select do |transaction|
-        transaction.invoice_id.to_s.include?(invoice_id.to_s)
-        end
     end
 
     def find_all_by_credit_card_number(credit_card_number)
@@ -50,27 +43,7 @@ class TransactionRepository
         end
     end
 
-    def create(transaction_attributes)
-        highest_id = @transactions.map(&:id).max.to_i
-        new_id = highest_id + 1
-        transaction_attributes["id"] = new_id
-        new_transaction = Transaction.new(transaction_attributes)
-        @transactions << new_transaction
-        new_transaction
-    end
-
-    def update(id, transaction_attributes)
-        transaction_to_update = find_by_id(id)
-        if 
-            transaction_to_update.result = transaction_attributes[:result]
-        end
-        transaction_to_update
-
-    end
-
-    def delete(id)
-        @transactions.reject! do |transaction|
-            transaction.id.to_i == id.to_i
-        end
+    def new(attributes)
+        Transaction.new(attributes)
     end
 end

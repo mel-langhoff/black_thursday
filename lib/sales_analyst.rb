@@ -80,20 +80,16 @@ class SalesAnalyst
 
     def top_days_by_invoice_count
         created_at_values = @invoices.map { |invoice| invoice.created_at }
-    
         # Count occurrences of each date
         date_count = created_at_values.group_by do |date|
-          Date.parse(date)
-        end.transform_values(&:size)
-    
+        Date.parse(date)
+        end.transform_values(&:size)    
         # Calculate mean and standard deviation
         mean = date_count.values.sum.to_f / date_count.size.to_f
         squared_diff = date_count.values.map { |count| (count - mean) ** 2 }
         standard_deviation = Math.sqrt(squared_diff.sum / date_count.size)
-    
         # Filter dates more than one standard deviation above the mean
         top_days = Set.new(date_count.select { |_, count| count > (mean + standard_deviation) }.keys)
-    
         top_days.map { |date| date.strftime('%A') }.uniq
       end
 
@@ -103,6 +99,7 @@ class SalesAnalyst
         ((total_of_invoices_in_selected_status.to_f / total_invoices.to_f) * 100).round(2)
       end
 
+      
       
 end
 
