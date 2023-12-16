@@ -39,8 +39,7 @@ class MerchantRepository
     end
 
     def create(merchant_attributes)
-        highest_id = @merchants.map(&:id).max
-        # @merchants.map { |merchant| merchant.id }
+        highest_id = @merchants.map(&:id).max.to_i
         new_id = highest_id + 1
         merchant_attributes["id"] = new_id
         new_merchant = Merchant.new(merchant_attributes)

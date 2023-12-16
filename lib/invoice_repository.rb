@@ -55,6 +55,9 @@ class InvoiceRepository
     end
 
     def create(invoice_attributes)
+        highest_id = @invoices.map(&:id).max.to_i
+        new_id = highest_id + 1
+        invoice_attributes["id"] = new_id
         new_invoice = Invoice.new(invoice_attributes)
         @invoices << new_invoice
         new_invoice

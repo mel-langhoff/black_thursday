@@ -67,7 +67,7 @@ class ItemRepository
     end
 
     def create(item_attributes)
-        highest_id = @items.map(&:id).max || 0
+        highest_id = @items.map(&:id).max.to_i
         new_id = highest_id + 1
         item_attributes["id"] = new_id
         new_item = Item.new(item_attributes)
@@ -78,7 +78,10 @@ class ItemRepository
     def update(id, item_attributes)
         item_to_update = find_by_id(id)
         if item_to_update
-          item_to_update.name = item_attributes[:name] if item_attributes[:name]
+            item_to_update.name = item_attributes[:name] if item_attributes[:name]
+            item_to_update.description = item_attributes[:description] if item_attributes[:description]
+            item_to_update.unit_price = item_attributes[:unit_price] if item_attributes[:unit_price]
+            item_to_update.updated_at = Date.today
         end
         item_to_update
     end

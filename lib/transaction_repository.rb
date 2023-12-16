@@ -51,6 +51,9 @@ class TransactionRepository
     end
 
     def create(transaction_attributes)
+        highest_id = @transactions.map(&:id).max.to_i
+        new_id = highest_id + 1
+        transaction_attributes["id"] = new_id
         new_transaction = Transaction.new(transaction_attributes)
         @transactions << new_transaction
         new_transaction
@@ -58,7 +61,7 @@ class TransactionRepository
 
     def update(id, transaction_attributes)
         transaction_to_update = find_by_id(id)
-        if transaction_to_update
+        if 
             transaction_to_update.result = transaction_attributes[:result]
         end
         transaction_to_update
