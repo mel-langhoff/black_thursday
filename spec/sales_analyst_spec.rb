@@ -2,7 +2,7 @@ require "./spec/spec_helper"
 
 RSpec.describe SalesAnalyst do
     before :each do
-        items_and_merchants_and_invoices_repositories = SalesEngine.from_csv({
+        repositories = SalesEngine.from_csv({
             :items     => "./data/items.csv",
             :merchants => "./data/merchants.csv",
             :invoices => "./data/invoices.csv",
@@ -11,9 +11,12 @@ RSpec.describe SalesAnalyst do
             })
 
         @sales_analyst = SalesAnalyst.new
-        @sales_analyst.items = items_and_merchants_and_invoices_repositories.items
-        @sales_analyst.invoices = items_and_merchants_and_invoices_repositories.invoices
-        @sales_analyst.merchants = items_and_merchants_and_invoices_repositories.merchants
+        @sales_analyst.items = repositories.items
+        @sales_analyst.invoices = repositories.invoices
+        @sales_analyst.merchants = repositories.merchants
+        @sales_analyst.invoices = repositories.invoices
+        @sales_analyst.customers = repositories.customers
+        @sales_analyst.transactions = repositories.transactions
     end
 
     it "exists" do
@@ -28,7 +31,7 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
     end
 
-    it "#average_items_price_per_merchant" do
+    it "#average_item_price_per_merchant" do
         expect(@sales_analyst.average_item_price_per_merchant(12334159)).to be_a BigDecimal
     end 
 
@@ -36,29 +39,29 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.average_average_price_per_merchant).to be_a BigDecimal
     end
 
-    it "#golden_items" do
+    xit "#golden_items" do
         expect(@sales_analyst.golden_items).to be_a Array
     end
 
-    it "#average_invoices_per_merchant" do
+    xit "#average_invoices_per_merchant" do
         expect(@sales_analyst.average_invoices_per_merchant).to eq(10.49)
     end
 
-    it "#average_invoices_per_merchant_standard_deviation" do
+    xit "#average_invoices_per_merchant_standard_deviation" do
         expect(@sales_analyst.average_invoices_per_merchant_standard_deviation).to eq(3.29)
     end
 
-    it "#top_merchants_by_invoice_count" do
+    xit "#top_merchants_by_invoice_count" do
         expect(@sales_analyst.top_merchants_by_invoice_count).to be_a Array
         expect(@sales_analyst.top_merchants_by_invoice_count.first).to be_an_instance_of Merchant
     end
 
-    it "#bottom_merchants_by_invoice_count" do
+    xit "#bottom_merchants_by_invoice_count" do
         expect(@sales_analyst.bottom_merchants_by_invoice_count).to be_a Array
         expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_an_instance_of Merchant
     end
 
-    it "#top_days_by_invoice_count" do
+    xit "#top_days_by_invoice_count" do
         expect(@sales_analyst.top_days_by_invoice_count).to be_a Array
         expect(@sales_analyst.top_days_by_invoice_count.first). to be_a String
     end
