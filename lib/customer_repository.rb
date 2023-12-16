@@ -47,6 +47,10 @@ class CustomerRepository
     end
 
     def create(customer_attributes)
+        highest_id = @customers.map(&:id).max.to_i
+        # @customers.map { |customer| customer.id }
+        new_id = highest_id + 1
+        customer_attributes["id"] = new_id
         new_customer = Customer.new(customer_attributes)
         @customers << new_customer
         new_customer

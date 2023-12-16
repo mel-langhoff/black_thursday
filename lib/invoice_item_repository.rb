@@ -51,6 +51,9 @@ class InvoiceItemRepository
     end
 
     def create(invoice_item_attributes)
+        highest_id = @invoice_items.map(&:id).max.to_i
+        new_id = highest_id + 1
+        invoice_item_attributes["id"] = new_id
         new_invoice_item = InvoiceItem.new(invoice_item_attributes)
         @invoice_items << new_invoice_item
         new_invoice_item
@@ -60,9 +63,10 @@ class InvoiceItemRepository
         invoice_item_to_update = find_by_id(id)
         if invoice_item_to_update
             invoice_item_to_update.quantity = invoice_item_attributes[:quantity]
+            invoice_item_to_update.unit_price = invoice_item_attributes[:unit_price]
+            invoice_item_to_update.updated_at = Date.today
         end
         invoice_item_to_update
-
     end
 
     def delete(id)
