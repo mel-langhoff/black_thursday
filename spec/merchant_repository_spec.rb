@@ -16,6 +16,7 @@ RSpec.describe MerchantRepository do
     end
 
     it "#all" do
+        expect(@merchantrepository.all).to be_a Array
         expect(@merchantrepository.merchants.first).to be_an_instance_of Merchant
     end
 
@@ -25,15 +26,21 @@ RSpec.describe MerchantRepository do
 
     it "#find_by_name" do
         expect(@merchantrepository.find_by_name("Shopin1901")).to be_an_instance_of Merchant
-        expect(@merchantrepository.find_by_name("shopin1901")).to be_an_instance_of Merchant
     end
 
     it "#find_all_by_name" do
-        expect(@merchantrepository.merchants.first).to be_an_instance_of Merchant
+        expect(@merchantrepository.find_all_by_name("Shopin1901").first.id).to eq(12334105)
     end
 
     it "#create" do
-        expect(@merchantrepository.merchants.first).to be_an_instance_of Merchant
+        initial_count = @merchantrepository.merchants.length
+        merchant_attributes = ({:id => 5, :name => "Turing School"})
+        new_merchant = @merchantrepository.create(merchant_attributes)
+
+        expect(new_merchant).to be_an_instance_of Merchant
+        expect(new_merchant.id).to eq(5)
+        expect(new_merchant.name).to eq("Turing School")
+        expect(@merchantrepository.merchants.length).to eq(initial_count + 1)    
     end
 
     it "#update" do

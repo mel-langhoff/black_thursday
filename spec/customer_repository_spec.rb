@@ -16,7 +16,7 @@ RSpec.describe ItemRepository do
     end
 
     it "#all" do
-    puts @customerrepository.customers.first
+        expect(@customerrepository.all).to be_a Array
         expect(@customerrepository.customers.first).to be_an_instance_of Customer
         expect(@customerrepository.customers.first.first_name).to eq("Joey")
 

@@ -16,6 +16,7 @@ RSpec.describe ItemRepository do
     end
 
     it "#all" do
+        expect(@itemrepository.all).to be_a Array
         expect(@itemrepository.items.first).to be_an_instance_of Item
         expect(@itemrepository.items.first.name).to include("510+ RealPush Icon Set")
 
@@ -65,16 +66,22 @@ RSpec.describe ItemRepository do
         expect(all_by_price_range.last.name).to include("Disney")
     end
 
-    # it "#find_all_by_price_range" do
-    #     all_by_price_range = @itemrepository.find_all_by_price_range(('1300.00')..('1350.00'))
-    #     expect(all_by_price_range.first).to be_an_instance_of Item
-    #     # expect(all_by_price_range.first.name).to include("Glitter")
-    #     # expect(all_by_price_range.last.name).to include("Disney")
-    # end
+    xit "#find_all_by_price_range" do
+        all_by_price_range = @itemrepository.find_all_by_price_range(('1300.00')..('1350.00'))
+        expect(all_by_price_range.first).to be_an_instance_of Item
+        # expect(all_by_price_range.first.name).to include("Glitter")
+        # expect(all_by_price_range.last.name).to include("Disney")
+    end
 
     it "#create" do
-        expect(@itemrepository.items.first).to be_an_instance_of Item
-        expect(@itemrepository.items.first.id).to eq(263395237)
+        initial_count = @itemrepository.items.length
+        item_attributes = ({:id => 1, :name => "Candle", :description => "Vanilla", :unit_price => BigDecimal(10.99,4), :created_at => Date.today - 1, :updated_at => Date.today, :merchant_id => 1})
+        new_item = @itemrepository.create(item_attributes)
+
+        expect(new_item).to be_an_instance_of Item
+        expect(new_item.id).to eq(1)
+        expect(new_item.name).to eq("Candle")
+        expect(@itemrepository.items.length).to eq(initial_count + 1)
     end
 
     it "#update" do
