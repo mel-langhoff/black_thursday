@@ -1,5 +1,7 @@
 require "./lib/modify_object_attributes"
+require "./lib/queries"
 class InvoiceItemRepository
+    include Queries
     include ModifyObjectAttributes
     attr_accessor :invoice_items, :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at, :invoice_items_file_path
 
@@ -32,12 +34,6 @@ class InvoiceItemRepository
 
     def all
         @invoice_items
-    end
-
-    def find_by_id(id)
-        @invoice_items.find do |invoice_item|
-            invoice_item.id.to_i == id.to_i
-        end
     end
 
     def find_all_by_item_id(item_id)

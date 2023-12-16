@@ -1,6 +1,9 @@
 require "./lib/modify_object_attributes"
+require "./lib/queries"
 class InvoiceRepository
     include ModifyObjectAttributes
+    include Queries
+
     attr_accessor :invoices
 
     def initialize(invoice_file_path)
@@ -30,24 +33,6 @@ class InvoiceRepository
 
     def all
         @invoices
-    end
-
-    def find_by_id(id)
-        @invoices.find do |invoice|
-            invoice.id == id
-        end
-    end
-
-    def find_all_by_customer_id(customer_id)
-        @invoices.select do |invoice|
-        invoice.customer_id.to_s.include?(customer_id.to_s)
-        end
-    end
-
-    def find_all_by_merchant_id(merchant_id)
-        @invoices.select do |invoice|
-        invoice.merchant_id.to_s.include?(merchant_id.to_s)
-        end
     end
 
     def find_all_by_status(status)

@@ -1,6 +1,9 @@
 require "./lib/modify_object_attributes"
+require "./lib/queries"
 class MerchantRepository
+    include Queries
     include ModifyObjectAttributes
+    
     attr_accessor :merchants
 
     def initialize(merchant_file_path)
@@ -26,24 +29,6 @@ class MerchantRepository
 
     def all
         @merchants
-    end
-
-    def find_by_id(id)
-        @merchants.find do |merchant|
-            merchant.id == id
-        end
-    end
-
-    def find_by_name(name)
-        @merchants.find do |merchant|
-            merchant.name.downcase == name.downcase
-        end
-    end
-
-    def find_all_by_name(name)
-        @merchants.select do |merchant|
-            merchant.name.downcase.include?(name.downcase)
-        end
     end
 
     def new(attributes)

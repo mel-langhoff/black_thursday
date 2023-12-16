@@ -1,6 +1,9 @@
 require "./lib/modify_object_attributes"
+require "./lib/queries"
 class TransactionRepository
+    include Queries
     include ModifyObjectAttributes
+    
     attr_accessor :transactions, :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
 
     def initialize(transactions_file_path)
@@ -32,18 +35,6 @@ class TransactionRepository
 
     def all
         @transactions
-    end
-
-    def find_by_id(id)
-        @transactions.find do |transaction|
-            transaction.id.to_i == id.to_i
-        end
-    end
-
-    def find_all_by_invoice_id(invoice_id)
-        @transactions.select do |transaction|
-        transaction.invoice_id.to_s.include?(invoice_id.to_s)
-        end
     end
 
     def find_all_by_credit_card_number(credit_card_number)

@@ -1,6 +1,9 @@
 require "./lib/modify_object_attributes"
+require "./lib/queries"
 class ItemRepository
+    include Queries
     include ModifyObjectAttributes
+    
     attr_accessor :items
 
     def initialize(item_file_path)
@@ -34,24 +37,6 @@ class ItemRepository
         @items
     end
 
-    def find_by_id(id)
-        @items.find do |item|
-            item.id == id
-        end
-    end
-
-    def find_by_name(name)
-        @items.find do |item|
-            item.name.downcase == name.downcase
-        end
-    end
-
-    # def find_all_by_name(name)
-    #     @items.find_all do |item|
-    #         item.name.downcase.include?(name.downcase)
-    #     end
-    # end
-
     def find_all_by_description(description)
         @items.select do |item|
             item.description.downcase.include?(description.downcase)
@@ -64,12 +49,6 @@ class ItemRepository
         end
     end
 
-    def find_all_by_merchant_id(merchant_id)
-        @items.select do |item|
-            item.merchant_id.to_s.include?(merchant_id.to_s)
-        end
-    end
-
     def find_all_by_price_range(range)
         @items.select do |item|
             range.include?(item.unit_price.to_f)
@@ -79,6 +58,5 @@ class ItemRepository
     def new(attributes)
         Item.new(attributes)
     end
-
 
 end
