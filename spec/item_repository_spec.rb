@@ -24,16 +24,18 @@ RSpec.describe ItemRepository do
 
     it "#find_by_id" do
         expect(@itemrepository.find_by_id(263395237)).to be_an_instance_of Item
+        expect(@itemrepository.find_by_id(24354554)).to be_nil
     end
 
     it "#find_by_name" do
+        expect(@itemrepository.find_by_name("dfgsdhd")).to be_nil
         expect(@itemrepository.find_by_name("510+ RealPush Icon Set")).to be_an_instance_of Item
     end
 
-    it "#find_all_by_name" do
-        all_by_name = @itemrepository.find_all_by_name("RealPush")
-        expect(all_by_name.first.id).to eq(263395237)
-    end
+    # it "#find_all_by_name" do
+    #     all_by_name = @itemrepository.find_all_by_name("RealPush")
+    #     expect(all_by_name.first.id).to eq(263395237)
+    # end
 
     it "#find_all_by_description" do
         all_by_description = @itemrepository.find_all_by_description("100% vector")

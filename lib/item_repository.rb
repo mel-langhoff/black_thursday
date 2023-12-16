@@ -36,32 +36,32 @@ class ItemRepository
         end
     end
 
-    def find_all_by_name(name)
-        @items.find_all do |item|
-            item.name.downcase.include?(name.downcase)
-        end
-    end
+    # def find_all_by_name(name)
+    #     @items.find_all do |item|
+    #         item.name.downcase.include?(name.downcase)
+    #     end
+    # end
 
     def find_all_by_description(description)
-        @items.find_all do |item|
+        @items.select do |item|
             item.description.downcase.include?(description.downcase)
         end
     end
 
     def find_all_by_price(unit_price)
-        @items.find_all do |item|
+        @items.select do |item|
             item.unit_price.to_s.include?(unit_price.to_s)
         end
     end
 
     def find_all_by_merchant_id(merchant_id)
-        @items.find_all do |item|
+        @items.select do |item|
             item.merchant_id.to_s.include?(merchant_id.to_s)
         end
     end
 
     def find_all_by_price_range(range)
-        @items.find_all do |item|
+        @items.select do |item|
             range.include?(item.unit_price)
         end
     end

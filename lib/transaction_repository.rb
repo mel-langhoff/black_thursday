@@ -39,13 +39,13 @@ class TransactionRepository
     end
 
     def find_all_by_invoice_id(invoice_id)
-        @transactions.find_all do |transaction|
+        @transactions.select do |transaction|
         transaction.invoice_id.to_s.include?(invoice_id.to_s)
         end
     end
 
     def find_all_by_credit_card_number(credit_card_number)
-        @transactions.find_all do |transaction|
+        @transactions.select do |transaction|
         transaction.credit_card_number.to_s.include?(credit_card_number.to_s)
         end
     end

@@ -22,14 +22,17 @@ RSpec.describe MerchantRepository do
 
     it "#find_by_id" do
         expect(@merchantrepository.find_by_id(12334105)).to be_an_instance_of Merchant
+        expect(@merchantrepository.find_by_id(000000)).to be_nil
     end
 
     it "#find_by_name" do
         expect(@merchantrepository.find_by_name("Shopin1901")).to be_an_instance_of Merchant
+        expect(@merchantrepository.find_by_name("Ssjdjlksdjgk")).to be_nil
     end
 
     it "#find_all_by_name" do
         expect(@merchantrepository.find_all_by_name("Shopin1901").first.id).to eq(12334105)
+        expect(@merchantrepository.find_all_by_name("dfgdfgd")).to eq([])
     end
 
     it "#create" do
