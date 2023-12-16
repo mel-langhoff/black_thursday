@@ -18,7 +18,7 @@ module LoadFiles
                 updated_at: updated_at
             }
             @invoices << Invoice.new(attributes)
-        end\
+        end
     end
 
     def load_customers(customers_file_path)
@@ -103,50 +103,28 @@ module LoadFiles
         end
     end
 
+
+    def load_invoice_items(invoice_items_file_path)
+        CSV.foreach(invoice_items_file_path, headers: true) do |attributes|
+            id = attributes["id"]
+            item_id = attributes["item_id"]
+            invoice_id = attributes["invoice_id"]
+            quantity = attributes["quantity"]
+            unit_price = attributes["unit_price"]
+            created_at = Date.today - 1
+            updated_at = Date.today
+            attributes = {
+                id: id,
+                item_id: item_id,
+                invoice_id: invoice_id,
+                quantity: quantity,
+                unit_price: unit_price,
+                created_at: created_at,
+                updated_at: updated_at
+            }
+            @invoice_items << InvoiceItem.new(attributes)
+        end
+    end
+
 end
-
-
-# @transactions = []
-#   # Initializes an empty array to store Transaction objects
-
-#   CSV.foreach(transactions_file_path, headers: true) do |transaction_attributes|
-#     # Iterates through each row (transaction_attributes) of the CSV file
-
-#     id = transaction_attributes["id"].to_i
-#     # Extracts the "id" attribute from the CSV row and converts it to an integer
-
-#     invoice_id = transaction_attributes["invoice_id"]
-#     # Extracts the "invoice_id" attribute from the CSV row
-
-#     credit_card_number = transaction_attributes["credit_card_number"]
-#     # Extracts the "credit_card_number" attribute from the CSV row
-
-#     credit_card_expiration_date = transaction_attributes["credit_card_expiration_date"]
-#     # Extracts the "credit_card_expiration_date" attribute from the CSV row
-
-#     result = transaction_attributes["result"]
-#     # Extracts the "result" attribute from the CSV row
-
-#     created_at = Date.today - 1
-#     # Sets the "created_at" attribute to yesterday's date (Date.today - 1)
-
-#     updated_at = Date.today
-#     # Sets the "updated_at" attribute to today's date (Date.today)
-
-#     transaction_attributes = {
-#       id: id.to_i,
-#       invoice_id: invoice_id,
-#       credit_card_number: credit_card_number,
-#       credit_card_expiration_date: credit_card_expiration_date,
-#       result: result,
-#       created_at: created_at,
-#       updated_at: updated_at
-#     }
-#     # Creates a hash containing the extracted attributes
-
-#     @transactions << Transaction.new(transaction_attributes)
-#     # Instantiates a new Transaction object with the attributes and adds it to the @transactions array
-#   end
-
-#   @transactions
-#   # Returns the array of Transaction objects
+  
