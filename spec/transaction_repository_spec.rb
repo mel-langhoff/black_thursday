@@ -12,6 +12,7 @@ RSpec.describe TransactionRepository do
     end
 
     it "#all" do
+        expect(@transactionrepository.all).to be_a Array
         expect(@transactionrepository.transactions.first.invoice_id).to eq("2179")
     end
 

@@ -37,19 +37,19 @@ class InvoiceRepository
     end
 
     def find_all_by_customer_id(customer_id)
-        @invoices.find_all do |invoice|
+        @invoices.select do |invoice|
         invoice.customer_id.to_s.include?(customer_id.to_s)
         end
     end
 
     def find_all_by_merchant_id(merchant_id)
-        @invoices.find_all do |invoice|
+        @invoices.select do |invoice|
         invoice.merchant_id.to_s.include?(merchant_id.to_s)
         end
     end
 
     def find_all_by_status(status)
-        @invoices.find_all do |invoice|
+        @invoices.select do |invoice|
         invoice.status.to_s.include?(status.to_s)
         end
     end
@@ -74,4 +74,3 @@ class InvoiceRepository
         end
     end
 end
-

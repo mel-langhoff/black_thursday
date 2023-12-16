@@ -39,13 +39,13 @@ class InvoiceItemRepository
     end
 
     def find_all_by_item_id(item_id)
-        @invoice_items.find_all do |invoice|
+        @invoice_items.select do |invoice|
         invoice.item_id.to_s.include?(item_id.to_s)
         end
     end
 
     def find_all_by_invoice_id(invoice_id)
-        @invoice_items.find_all do |invoice|
+        @invoice_items.select do |invoice|
         invoice.invoice_id.to_s.include?(invoice_id.to_s)
         end
     end

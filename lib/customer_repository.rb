@@ -35,13 +35,13 @@ class CustomerRepository
     end
 
     def find_all_by_first_name(first_name)
-        @customers.find_all do |customer|
+        @customers.select do |customer|
         customer.first_name.to_s.include?(first_name.to_s)
         end
     end
 
     def find_all_by_last_name(last_name)
-        @customers.find_all do |customer|
+        @customers.select do |customer|
         customer.last_name.to_s.include?(last_name.to_s)
         end
     end

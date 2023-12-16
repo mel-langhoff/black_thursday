@@ -33,13 +33,14 @@ class MerchantRepository
     end
 
     def find_all_by_name(name)
-        @merchants.find_all do |merchant|
+        @merchants.select do |merchant|
             merchant.name.downcase.include?(name.downcase)
         end
     end
 
     def create(merchant_attributes)
-        highest_id = @merchants.map(&:id).max || 0
+        highest_id = @merchants.map(&:id).max
+        # @merchants.map { |merchant| merchant.id }
         new_id = highest_id + 1
         merchant_attributes["id"] = new_id
         new_merchant = Merchant.new(merchant_attributes)

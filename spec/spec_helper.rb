@@ -15,3 +15,4 @@ require "./lib/transaction"
 require "./lib/transaction_repository"
 require "./lib/customer"
 require "./lib/customer_repository"
+# require the stupid fucking modules here because ruby is too fucking stupid to fucking find them

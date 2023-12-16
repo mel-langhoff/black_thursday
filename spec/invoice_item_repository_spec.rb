@@ -12,6 +12,7 @@ RSpec.describe InvoiceItemRepository do
     end
 
     it "#all" do
+        expect(@invoiceitemrepository.all).to be_a Array
         expect(@invoiceitemrepository.invoice_items.first.item_id).to eq("263519844")
     end
 

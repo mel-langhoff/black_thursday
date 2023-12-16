@@ -15,9 +15,9 @@ RSpec.describe InvoiceRepository do
         expect(@invoicerepository.invoices.first.customer_id).to eq(1)
     end
 
-    xit "#all" do
-        expect(@invoicerepository.all).to include Invoice
-        expect(@invoicerepository.first.id).to eq(1)
+    it "#all" do
+        expect(@invoicerepository.all).to be_a Array
+        expect(@invoicerepository.invoices.first.id).to eq(1)
     end 
 
     it "#find_by_id" do
