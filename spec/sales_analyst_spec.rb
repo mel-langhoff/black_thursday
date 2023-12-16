@@ -82,5 +82,33 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.top_revenue_earners.length).to eq(20)
     end
         
+    it "#merchants_with_pending_invoices" do
+        expect(@sales_analyst.merchants_with_pending_invoices).to be_a Array
+        expect(@sales_analyst.merchants_with_pending_invoices.first).to be_an_instance_of Merchant
+    end
+
+    it "#merchants_with_only_one_item" do
+        expect(@sales_analyst.merchants_with_only_one_item).to be_a Array
+        expect(@sales_analyst.merchants_with_only_one_item.first).to be_an_instance_of Merchant
+    end
+    
+    it "#merchants_with_only_one_item_registered_in_month" do
+        expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("January")).to be_a Array
+        expect(@sales_analyst.merchants_with_only_one_item_registered_in_month("January")).to be_a Array
+    end
+
+    it "#revenue_by_merchant" do
+        expect(@sales_analyst.revenue_by_merchant(12334105)).to be_a Float
+    end
+
+    it "#most_sold_item_for_merchant" do
+        expect(@sales_analyst.most_sold_item_for_merchant(12334105)).to be_a Array
+        expect(@sales_analyst.most_sold_item_for_merchant(12334105).length).to be(1)
+        expect(@sales_analyst.most_sold_item_for_merchant(12334105).first).to be_an_instance_of Item
+    end
+
+    it "#best_item_for_merchant" do
+        expect(@sales_analyst.best_item_for_merchant(12334105)).to be_an_instance_of Item
+    end
 
 end
