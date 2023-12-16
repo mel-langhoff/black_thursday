@@ -73,6 +73,14 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.invoice_status("returned")).to eq(13.5)
     end 
 
+    it "#total_revenue_by_date" do
+        expect(@sales_analyst.total_revenue_by_date(Date.today)).to be_a Date
+    end
 
+    it "#top_revenue_earners" do
+        expect(@sales_analyst.top_revenue_earners(5).length).to eq(5)
+        expect(@sales_analyst.top_revenue_earners.length).to eq(20)
+    end
+        
 
 end
