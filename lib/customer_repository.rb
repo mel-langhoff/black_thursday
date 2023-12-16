@@ -1,4 +1,6 @@
+require "./lib/modify_object_attributes"
 class CustomerRepository
+include ModifyObjectAttributes
     attr_accessor :customers
 
     def initialize(customers_file_path)
@@ -7,20 +9,20 @@ class CustomerRepository
     end
 
     def load_customers(customers_file_path)
-        CSV.foreach(customers_file_path, headers: true) do |customer_attributes|
-            id = customer_attributes["id"].to_i
-            first_name = customer_attributes["first_name"]
-            last_name = customer_attributes["last_name"]
+        CSV.foreach(customers_file_path, headers: true) do |attributes|
+            id = attributes["id"].to_i
+            first_name = attributes["first_name"]
+            last_name = attributes["last_name"]
             created_at = Date.today - 1
             updated_at = Date.today
-            customer_attributes = {
+            attributes = {
                 id: id.to_i,
                 first_name: first_name,
                 last_name: last_name,
                 created_at: created_at,
                 updated_at: updated_at
             }
-            @customers << Customer.new(customer_attributes)
+            @customers << Customer.new(attributes)
         end
     end
 
@@ -46,23 +48,27 @@ class CustomerRepository
         end
     end
 
-    def create(customer_attributes)
-        highest_id = @customers.map(&:id).max.to_i
-        # @customers.map { |customer| customer.id }
-        new_id = highest_id + 1
-        customer_attributes["id"] = new_id
-        new_customer = Customer.new(customer_attributes)
-        @customers << new_customer
-        new_customer
+    # def create(customer_attributes)
+    #     highest_id = @customers.map(&:id).max.to_i
+    #     # @customers.map { |customer| customer.id }
+    #     new_id = highest_id + 1
+    #     customer_attributes["id"] = new_id
+    #     new_customer = Customer.new(customer_attributes)
+    #     @customers << new_customer
+    #     new_customer
+    # end
+
+    def new(attributes)
+        Customer.new(attributes)
     end
 
-    def update(id, customer_attributes)
-        customer_to_update = find_by_id(id)
-        if customer_to_update
-            customer_to_update.first_name = customer_attributes[:first_name]
-        end
-        customer_to_update
-    end
+    # def update(id, attributes)
+    #     customer_to_update = find_by_id(id)
+    #     if customer_to_update
+    #         customer_to_update.first_name = attributes[:first_name]
+    #     end
+    #     customer_to_update
+    # end
 
     def delete(id)
         @customers.reject! do |customer|
