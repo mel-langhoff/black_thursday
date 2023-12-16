@@ -32,8 +32,8 @@ class SalesAnalyst
     def average_items_per_merchant_standard_deviation
         mean = average_items_per_merchant
         squared_diff_sum = @merchants.each.reduce(0) do |sum, merchant|
-          items_count = @items.count { |item| item.merchant_id.to_i == merchant.id.to_i }
-          sum + (items_count - mean) ** 2
+            items_count = @items.count { |item| item.merchant_id.to_i == merchant.id.to_i }
+            sum + (items_count - mean) ** 2
         end      
         standard_deviation = Math.sqrt(squared_diff_sum / @merchants.length)
         standard_deviation.round(2)
@@ -43,43 +43,43 @@ class SalesAnalyst
         average_price = average_average_price_per_merchant
         standard_deviation = average_items_per_merchant_standard_deviation
         set_limit = average_price + (standard_deviation * 2)
-        @items.items.find_all do |item|
+        @items.find_all do |item|
             item.unit_price.to_f > set_limit
         end
     end
 
     def average_invoices_per_merchant 
-        total_invoices = @invoices.invoices.size.to_f
-        total_merchants = @merchants.merchants.size.to_f
+        total_invoices = @invoices.size.to_f
+        total_merchants = @merchants.size.to_f
         (total_invoices / total_merchants).round(2)
     end
 
     def average_invoices_per_merchant_standard_deviation
         mean = average_invoices_per_merchant
-        squared_diff_sum = @merchants.merchants.each.reduce(0) do |sum, merchant|
-            invoices_count = @invoices.find_all_by_merchant_id(merchant.id).length
+        squared_diff_sum = @merchants.each.reduce(0) do |sum, merchant|
+            invoices_count = @invoices.count { |invoice| invoice.merchant_id.to_s.include?(merchant.id.to_s) }
             sum + (invoices_count - mean) ** 2
         end
-        standard_deviation = Math.sqrt(squared_diff_sum / @merchants.all.length)
+        standard_deviation = Math.sqrt(squared_diff_sum / @merchants.length)
         standard_deviation.round(2)
     end
 
     def top_merchants_by_invoice_count
-        merchants_by_invoice_count = @merchants.merchants.map.sort_by do |merchant|
-            @invoices.find_all_by_merchant_id(merchant.id).size
+        merchants_by_invoice_count = @merchants.map.sort_by do |merchant|
+            (@invoices.find_all { |invoice| invoice.merchant_id.to_s.include?(merchant.id.to_s) }).size
             end
         merchants_by_invoice_count
     end
 
     def bottom_merchants_by_invoice_count
-        merchants_by_invoice_count = @merchants.merchants.map.sort_by do |merchant|
-            @invoices.find_all_by_merchant_id(merchant.id).size
+        merchants_by_invoice_count = @merchants.map.sort_by do |merchant|
+            (@invoices.find_all { |invoice| invoice.merchant_id.to_s.include?(merchant.id.to_s) }).size
             end
         merchants_by_invoice_count.reverse
     end
 
     def top_days_by_invoice_count
-        created_at_values = @invoices.invoices.map { |invoice| invoice.created_at }
+        created_at_values = @invoices.map { |invoice| invoice.created_at }
     
         # Count occurrences of each date
         date_count = created_at_values.group_by do |date|
