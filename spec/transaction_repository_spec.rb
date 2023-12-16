@@ -12,12 +12,12 @@ RSpec.describe TransactionRepository do
     end
 
     it "#all" do
-        expect(@transactionrepository.transactions.first.invoice_id).to eq("2179")
+        expect(@transactionrepository.transactions.first.invoice_id).to eq(2179)
     end
 
     it "#find_by_id" do
         expect(@transactionrepository.find_by_id(1)).to be_an_instance_of Transaction
-        expect(@transactionrepository.find_by_id(1).invoice_id).to eq("2179")
+        expect(@transactionrepository.find_by_id(1).invoice_id).to eq(2179)
     end
 
     it "#find_all_by_invoice_id" do
@@ -31,7 +31,7 @@ RSpec.describe TransactionRepository do
         queried_credit_card_number = @transactionrepository.find_all_by_credit_card_number(4068631943231473)
         expect(queried_credit_card_number).to be_a Array
         expect(queried_credit_card_number.first).to be_an_instance_of Transaction
-        expect(queried_credit_card_number.first.invoice_id).to eq("2179")
+        expect(queried_credit_card_number.first.invoice_id).to eq(2179)
     end
 
     it "#create" do
@@ -66,7 +66,7 @@ RSpec.describe TransactionRepository do
     end
 
     it "#delete" do
-        attributes = { id: 1, invoice_id: "2179" }
+        attributes = { id: 1, invoice_id: 2179 }
         @transactionrepository.create(attributes)
 
         expect(@transactionrepository.find_by_id(1)).to be_an_instance_of Transaction

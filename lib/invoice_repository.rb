@@ -1,9 +1,12 @@
+
 class InvoiceRepository
+
+
     attr_accessor :invoices
 
     def initialize(invoice_file_path)
         @invoices = []
-        load_invoices(invoice_file_path)
+
     end
 
     def load_invoices(invoice_file_path)
@@ -12,18 +15,19 @@ class InvoiceRepository
             customer_id = row["customer_id"].to_i
             merchant_id = row["merchant_id"].to_i
             status = row["status"]
-            created_at = row["created_at"]
-            updated_at = row["updated_at"]
+            created_at = Date.today - 1
+            updated_at = Date.today
             invoice_attributes = {
-                id: id,
-                customer_id: customer_id,
-                merchant_id: merchant_id,
+                id: id.to_i,
+                customer_id: customer_id.to_i,
+                merchant_id: merchant_id.to_i,
                 status: status,
                 created_at: created_at,
                 updated_at: updated_at
             }
             @invoices << Invoice.new(invoice_attributes)
         end
+        @invoices
     end
 
     def all
@@ -54,24 +58,24 @@ class InvoiceRepository
         end
     end
 
-    def create(invoice_attributes)
-        new_invoice = Invoice.new(invoice_attributes)
-        @invoices << new_invoice
-        new_invoice
-    end
+    # def create(invoice_attributes)
+    #     new_invoice = Invoice.new(invoice_attributes)
+    #     @invoices << new_invoice
+    #     new_invoice
+    # end
 
-    def update(id, invoice_attributes)
-        invoice_to_update = find_by_id(id)
-        if invoice_to_update
-            invoice_to_update.status = invoice_attributes[:status]
-        end
-        invoice_to_update
-    end
+    # def update(id, invoice_attributes)
+    #     invoice_to_update = find_by_id(id)
+    #     if invoice_to_update
+    #         invoice_to_update.status = invoice_attributes[:status]
+    #     end
+    #     invoice_to_update
+    # end
 
-    def delete(id)
-        @invoices.reject! do |invoice|
-            invoice.id == id
-        end
-    end
+    # def delete(id)
+    #     @invoices.reject! do |invoice|
+    #         invoice.id == id
+    #     end
+    # end
 end
 

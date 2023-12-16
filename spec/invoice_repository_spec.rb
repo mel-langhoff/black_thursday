@@ -68,7 +68,7 @@ RSpec.describe InvoiceRepository do
     end
 
     it "#delete" do
-        attributes = { id: 1, merchant_id: "12335938" }
+        attributes = { id: 1, merchant_id: 12335938 }
         @invoicerepository.create(attributes)
 
         expect(@invoicerepository.find_by_id(1)).to be_an_instance_of Invoice

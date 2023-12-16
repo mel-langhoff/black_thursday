@@ -3,10 +3,12 @@ require "./spec/spec_helper"
 RSpec.describe SalesAnalyst do
     before :each do
         items_and_merchants_and_invoices_repositories = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-        :invoices => "./data/invoices.csv"
-        })
+            :items     => "./data/items.csv",
+            :merchants => "./data/merchants.csv",
+            :invoices => "./data/invoices.csv",
+            :transactions => "./data/transactions.csv",
+            :customers => "./data/customers.csv"
+            })
 
         @sales_analyst = SalesAnalyst.new
         @sales_analyst.items = items_and_merchants_and_invoices_repositories.items

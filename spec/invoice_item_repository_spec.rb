@@ -12,12 +12,12 @@ RSpec.describe InvoiceItemRepository do
     end
 
     it "#all" do
-        expect(@invoiceitemrepository.invoice_items.first.item_id).to eq("263519844")
+        expect(@invoiceitemrepository.invoice_items.first.item_id).to eq(263519844)
     end
 
     it "#find_by_id" do
         expect(@invoiceitemrepository.find_by_id(1)).to be_an_instance_of InvoiceItem
-        expect(@invoiceitemrepository.find_by_id(1).item_id).to eq("263519844")
+        expect(@invoiceitemrepository.find_by_id(1).item_id).to eq(263519844)
     end
 
     it "#find_all_by_item_id" do

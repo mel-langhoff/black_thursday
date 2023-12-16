@@ -1,10 +1,16 @@
-require "csv"
+
 class ItemRepository
-    attr_accessor :items
+
+
+    attr_accessor :items, :sales_engine
 
     def initialize(item_file_path)
         @items = []
-        load_items(item_file_path)
+
+    end
+
+    def all
+        @items
     end
 
     def load_items(item_file_path)
@@ -16,14 +22,22 @@ class ItemRepository
             merchant_id = row["merchant_id"]
             created_at = row["created_at"]
             updated_at = row["updated_at"]
-            @items << Item.new(id: id.to_i, name: name, description: description, unit_price: unit_price, merchant_id: merchant_id, created_at: created_at, updated_at: updated_at)
+            @items << Item.new(id: id, name: name, description: description, unit_price: unit_price, merchant_id: merchant_id, created_at: created_at, updated_at: updated_at)
         end
+        # @items = []
+        # item_repository = ItemRepository.new(item_file_path)
+        # CSV.foreach(item_file_path, headers: true) do |row|
+        #     id = row["id"].to_i
+        #     name = row["name"]
+        #     description = row["description"]
+        #     unit_price = row["unit_price"]
+        #     merchant_id = row["merchant_id"]
+        #     created_at = row["created_at"]
+        #     updated_at = row["updated_at"]
+        #     @items << Item.new(id: id.to_i, name: name, description: description, unit_price: unit_price, merchant_id: merchant_id, created_at: created_at, updated_at: updated_at)
+        # end
     end
-
-    def all
-        @items
-    end
-
+      
     def find_by_id(id)
         @items.find do |item|
             item.id == id
@@ -66,28 +80,28 @@ class ItemRepository
         end
     end
 
-    def create(item_attributes)
-        highest_id = @items.map(&:id).max || 0
-        new_id = highest_id + 1
-        item_attributes["id"] = new_id
-        new_item = Item.new(item_attributes)
-        @items << new_item
-        new_item
-    end
+    # def create(item_attributes)
+    #     highest_id = @items.map(&:id).max || 0
+    #     new_id = highest_id + 1
+    #     item_attributes["id"] = new_id
+    #     new_item = Item.new(item_attributes)
+    #     @items << new_item
+    #     new_item
+    # end
 
-    def update(id, item_attributes)
-        item_to_update = find_by_id(id)
-        if item_to_update
-          item_to_update.name = item_attributes[:name] if item_attributes[:name]
-        end
-        item_to_update
-    end
+    # def update(id, item_attributes)
+    #     item_to_update = find_by_id(id)
+    #     if item_to_update
+    #       item_to_update.name = item_attributes[:name] if item_attributes[:name]
+    #     end
+    #     item_to_update
+    # end
 
-    def delete(id)
-        @items.reject! do |item|
-            item.id == id
-        end
-    end
+    # def delete(id)
+    #     @items.reject! do |item|
+    #         item.id == id
+    #     end
+    # end
 
 
 end

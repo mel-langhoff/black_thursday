@@ -1,12 +1,15 @@
+
 class CustomerRepository
+
+
     attr_accessor :customers
 
-    def initialize(customers_file_path)
+    def initialize(customers_file_path) 
         @customers = []
-        load_customers(customers_file_path)
     end
 
     def load_customers(customers_file_path)
+        @customers = []
         CSV.foreach(customers_file_path, headers: true) do |customer_attributes|
             id = customer_attributes["id"].to_i
             first_name = customer_attributes["first_name"]
@@ -22,11 +25,15 @@ class CustomerRepository
             }
             @customers << Customer.new(customer_attributes)
         end
-    end
-
-    def all
         @customers
     end
+
+    
+    def all
+        @customers
+        require 'pry'; binding.pry
+    end
+
 
     def find_by_id(id)
         @customers.find do |customer|
@@ -46,23 +53,23 @@ class CustomerRepository
         end
     end
 
-    def create(customer_attributes)
-        new_customer = Customer.new(customer_attributes)
-        @customers << new_customer
-        new_customer
-    end
+    # def create(customer_attributes)
+    #     new_customer = Customer.new(customer_attributes)
+    #     @customers << new_customer
+    #     new_customer
+    # end
 
-    def update(id, customer_attributes)
-        customer_to_update = find_by_id(id)
-        if customer_to_update
-            customer_to_update.first_name = customer_attributes[:first_name]
-        end
-        customer_to_update
-    end
+    # def update(id, customer_attributes)
+    #     customer_to_update = find_by_id(id)
+    #     if customer_to_update
+    #         customer_to_update.first_name = customer_attributes[:first_name]
+    #     end
+    #     customer_to_update
+    # end
 
-    def delete(id)
-        @customers.reject! do |customer|
-            customer.id.to_i == id.to_i
-        end
-    end
+    # def delete(id)
+    #     @customers.reject! do |customer|
+    #         customer.id.to_i == id.to_i
+    #     end
+    # end
 end
