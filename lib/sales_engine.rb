@@ -111,3 +111,34 @@ class SalesEngine
         SalesAnalyst.new
     end
 end
+
+# class SalesEngine
+#     attr_reader :customers, :transactions, :items, :merchants, :invoices
+  
+#     def self.from_csv(file_paths)
+#       sales_engine = SalesEngine.new
+#       sales_engine.load_data(file_paths[:customers], CustomerRepository, Customer)
+#       sales_engine.load_data(file_paths[:transactions], TransactionRepository, Transaction)
+#       sales_engine.load_data(file_paths[:invoices], InvoiceRepository, Invoice)
+#       sales_engine.load_data(file_paths[:items], ItemRepository, Item)
+#       sales_engine.load_data(file_paths[:merchants], MerchantRepository, Merchant)
+#       sales_engine
+#     end
+  
+#     def load_data(file_path, repository_class, entity_class)
+#       repository = repository_class.new(file_path)
+#       entities = []
+  
+#       CSV.foreach(file_path, headers: true) do |row|
+#         attributes = row.to_h
+#         entities << entity_class.new(attributes)
+#       end
+  
+#       instance_variable_set("@#{repository_class.name.split('Repository').first.downcase}", entities)
+#     end
+  
+#     def analyst
+#       SalesAnalyst.new
+#     end
+#   end
+  

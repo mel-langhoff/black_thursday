@@ -3,10 +3,12 @@ require "./spec/spec_helper"
 RSpec.describe SalesAnalyst do
     before :each do
         items_and_merchants_and_invoices_repositories = SalesEngine.from_csv({
-        :items     => "./data/items.csv",
-        :merchants => "./data/merchants.csv",
-        :invoices => "./data/invoices.csv"
-        })
+            :items     => "./data/items.csv",
+            :merchants => "./data/merchants.csv",
+            :invoices => "./data/invoices.csv",
+            :transactions => "./data/transactions.csv",
+            :customers => "./data/customers.csv"
+            })
 
         @sales_analyst = SalesAnalyst.new
         @sales_analyst.items = items_and_merchants_and_invoices_repositories.items
@@ -62,10 +64,10 @@ RSpec.describe SalesAnalyst do
     end
 
     it "#invoice_status" do
-        expect(@sales_analyst.invoice_status(pending)).to be_a Float
-        expect(@sales_analyst.invoice_status(pending)).to eq(29.55)
-        expect(@sales_analyst.invoice_status(shipped)).to eq(56.95)
-        expect(@sales_analyst.invoice_status(returned)).to eq(13.5)
+        expect(@sales_analyst.invoice_status("pending")).to be_a Float
+        expect(@sales_analyst.invoice_status("pending")).to eq(29.55)
+        expect(@sales_analyst.invoice_status("shipped")).to eq(56.95)
+        expect(@sales_analyst.invoice_status("returned")).to eq(13.5)
     end 
 
 end

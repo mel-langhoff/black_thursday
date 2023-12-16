@@ -1,5 +1,5 @@
 class SalesAnalyst
-    attr_accessor :list_of_all_invoices, :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine, :item_repository, :invoices
+    attr_accessor :customers, :transactions, :items, :merchants, :invoices, :list_of_all_invoices, :items, :merchants, :item_file_path, :merchant_file_path, :file_paths, :total_merchants, :total_items, :sales_engine, :item_repository, :invoices
 
     def average_items_per_merchant  
         @total_items = @items.items.size.to_f
@@ -97,9 +97,9 @@ class SalesAnalyst
       end
 
       def invoice_status(invoice_status)
-        total_invoices = @invoices.invoices.size
-        total_of_invoices_in_selected_status = @invoices.invoices.status[invoice_status]
-        (total_pending.to_f / total_invoices.to_f).round(2)
+        total_invoices = @invoices.size
+        total_of_invoices_in_selected_status = total_of_invoices_in_selected_status = @invoices.count { |invoice| invoice.status == invoice_status }
+        ((total_of_invoices_in_selected_status.to_f / total_invoices.to_f) * 100).round(2)
       end
 end
 
