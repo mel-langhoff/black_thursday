@@ -1,4 +1,6 @@
+require "./lib/modify_object_attributes"
 class InvoiceItemRepository
+    include ModifyObjectAttributes
     attr_accessor :invoice_items, :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at, :invoice_items_file_path
 
     def initialize(invoice_items_file_path)
@@ -7,15 +9,15 @@ class InvoiceItemRepository
     end
 
     def load_invoice_items(invoice_items_file_path)
-        CSV.foreach(invoice_items_file_path, headers: true) do |invoice_item_attributes|
-            id = invoice_item_attributes["id"]
-            item_id = invoice_item_attributes["item_id"]
-            invoice_id = invoice_item_attributes["invoice_id"]
-            quantity = invoice_item_attributes["quantity"]
-            unit_price = invoice_item_attributes["unit_price"]
+        CSV.foreach(invoice_items_file_path, headers: true) do |attributes|
+            id = attributes["id"]
+            item_id = attributes["item_id"]
+            invoice_id = attributes["invoice_id"]
+            quantity = attributes["quantity"]
+            unit_price = attributes["unit_price"]
             created_at = Date.today - 1
             updated_at = Date.today
-            invoice_item_attributes = {
+            attributes = {
                 id: id,
                 item_id: item_id,
                 invoice_id: invoice_id,
@@ -24,7 +26,7 @@ class InvoiceItemRepository
                 created_at: created_at,
                 updated_at: updated_at
             }
-            @invoice_items << InvoiceItem.new(invoice_item_attributes)
+            @invoice_items << InvoiceItem.new(attributes)
         end
     end
 
@@ -50,28 +52,8 @@ class InvoiceItemRepository
         end
     end
 
-    def create(invoice_item_attributes)
-        highest_id = @invoice_items.map(&:id).max.to_i
-        new_id = highest_id + 1
-        invoice_item_attributes["id"] = new_id
-        new_invoice_item = InvoiceItem.new(invoice_item_attributes)
-        @invoice_items << new_invoice_item
-        new_invoice_item
+    def new(attributes)
+        InvoiceItem.new(attributes)
     end
 
-    def update(id, invoice_item_attributes)
-        invoice_item_to_update = find_by_id(id)
-        if invoice_item_to_update
-            invoice_item_to_update.quantity = invoice_item_attributes[:quantity]
-            invoice_item_to_update.unit_price = invoice_item_attributes[:unit_price]
-            invoice_item_to_update.updated_at = Date.today
-        end
-        invoice_item_to_update
-    end
-
-    def delete(id)
-        @invoice_items.reject! do |invoice_item|
-            invoice_item.id.to_i == id.to_i
-        end
-    end
 end

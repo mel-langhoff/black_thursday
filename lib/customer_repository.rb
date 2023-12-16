@@ -1,6 +1,6 @@
 require "./lib/modify_object_attributes"
 class CustomerRepository
-include ModifyObjectAttributes
+    include ModifyObjectAttributes
     attr_accessor :customers
 
     def initialize(customers_file_path)

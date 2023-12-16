@@ -14,7 +14,7 @@ module ModifyObjectAttributes
         if object_to_update
             attributes.each do |attribute_name, _|
                 if object_to_update.respond_to?("#{attribute_name}=")
-                    # checks if the object has a setter method for the current attribute, object can be updated with the given attribute
+                    # checks if the object has a method for the current attribute, object can be updated with the given attribute
                 object_to_update.send("#{attribute_name}=", _)
                     # calls the method for the attribute
                     # .send allows you to call a method by providing its name as a symbol or a string
@@ -26,7 +26,7 @@ module ModifyObjectAttributes
 
     def delete(id)
         all.reject! do |object|
-            all.id.to_i == id.to_i
+            object.id.to_i == id.to_i
         end
     end
 
