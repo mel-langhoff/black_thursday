@@ -99,7 +99,7 @@ class SalesAnalyst
         ((total_of_invoices_in_selected_status.to_f / total_invoices.to_f) * 100).round(2)
       end
 
-      
+
       
 end
 

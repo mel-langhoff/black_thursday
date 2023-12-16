@@ -1,32 +1,17 @@
 require "./lib/modify_object_attributes"
 require "./lib/queries"
+require "./lib/load_files"
+
 class CustomerRepository
     include ModifyObjectAttributes
     include Queries
+    include LoadFiles
 
     attr_accessor :customers
 
     def initialize(customers_file_path)
         @customers = []
         load_customers(customers_file_path)
-    end
-
-    def load_customers(customers_file_path)
-        CSV.foreach(customers_file_path, headers: true) do |attributes|
-            id = attributes["id"].to_i
-            first_name = attributes["first_name"]
-            last_name = attributes["last_name"]
-            created_at = Date.today - 1
-            updated_at = Date.today
-            attributes = {
-                id: id.to_i,
-                first_name: first_name,
-                last_name: last_name,
-                created_at: created_at,
-                updated_at: updated_at
-            }
-            @customers << Customer.new(attributes)
-        end
     end
 
     def all

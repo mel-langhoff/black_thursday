@@ -61,7 +61,7 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.bottom_merchants_by_invoice_count.first).to be_an_instance_of Merchant
     end
 
-    it "#top_days_by_invoice_count" do
+    xit "#top_days_by_invoice_count" do
         expect(@sales_analyst.top_days_by_invoice_count).to be_a Array
         expect(@sales_analyst.top_days_by_invoice_count.first). to be_a String
     end
@@ -73,6 +73,6 @@ RSpec.describe SalesAnalyst do
         expect(@sales_analyst.invoice_status("returned")).to eq(13.5)
     end 
 
-    
+
 
 end

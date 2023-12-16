@@ -1,8 +1,11 @@
 require "./lib/modify_object_attributes"
 require "./lib/queries"
+require "./lib/load_files"
+
 class MerchantRepository
     include Queries
     include ModifyObjectAttributes
+    include LoadFiles
     
     attr_accessor :merchants
 

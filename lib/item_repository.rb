@@ -1,36 +1,17 @@
 require "./lib/modify_object_attributes"
 require "./lib/queries"
+require "./lib/load_files"
+
 class ItemRepository
     include Queries
     include ModifyObjectAttributes
+    include LoadFiles
     
     attr_accessor :items
 
     def initialize(item_file_path)
         @items = []
         load_items(item_file_path)
-    end
-
-    def load_items(item_file_path)
-        CSV.foreach(item_file_path, headers: true) do |attributes|
-            id = attributes["id"].to_i
-            name = attributes["name"]
-            description = attributes["description"]
-            unit_price = attributes["unit_price"]
-            merchant_id = attributes["merchant_id"]
-            created_at = Date.today - 1
-            updated_at = Date.today
-            attributes = {
-                id: id.to_i, 
-                name: name, 
-                description: description, 
-                unit_price: unit_price, 
-                merchant_id: merchant_id, 
-                created_at: created_at, 
-                updated_at: updated_at
-            }
-            @items << Item.new(attributes)
-        end
     end
 
     def all
