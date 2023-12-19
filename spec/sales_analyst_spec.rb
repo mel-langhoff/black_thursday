@@ -74,7 +74,7 @@ RSpec.describe SalesAnalyst do
     end 
 
     it "#total_revenue_by_date" do
-        expect(@sales_analyst.total_revenue_by_date(Date.today)).to be_a Date
+        expect(@sales_analyst.total_revenue_by_date(Date.today)).to be_a Float
     end
 
     it "#top_revenue_earners" do
