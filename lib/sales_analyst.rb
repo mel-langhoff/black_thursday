@@ -98,9 +98,27 @@ class SalesAnalyst
         total_of_invoices_in_selected_status = total_of_invoices_in_selected_status = @invoices.count { |invoice| invoice.status == invoice_status }
         ((total_of_invoices_in_selected_status.to_f / total_invoices.to_f) * 100).round(2)
       end
+    
+    def total_revenue_by_date(date)
+        total_revenue = 0
 
-      
-      
+        invoices_for_selected_date = @invoices.select { |invoice| invoice.created_at == date }
+        invoices_for_selected_date.each do |invoice|
+        total_revenue += calculate_invoice_total(invoice)
+        end
+
+        total_revenue
+    end
+
+    def calculate_invoice_total(invoice)
+        total = 0
+
+        invoice.invoice_items.each do |invoice_item|
+            total += invoice_item.quantity * invoice_item.unit_price
+        end
+        total
+    end
+
 end
 
 
